@@ -1,0 +1,45 @@
+{%extends 'layout/master_manage.html'%}
+{%block content%}
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <b>Doanh thu ngày hôm nay: {{ngay}}</b>
+    </div>
+  </div>
+</div>
+<div class="container">
+    
+    <div class="row">
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">STT</th>
+                <th scope="col">Mã SP</th>
+                <th scope="col">Tên sản phẩm</th>
+                <th scope="col">Số lượng</th>
+                <th scope="col">Tổng tiền</th>
+              </tr>
+            </thead>
+            <tbody>
+                {%for item in lst_sp_trong_ngay%}
+              <tr>
+                <th scope="row">{{loop.index}}</th>
+                <td>{{item['ma_sp']}}</td>
+                <td>{{item['ten_sp']|title}}</td>
+                <td>{{item['so_luong']}}</td>
+                <td>{{item['so_luong'] * item['gia_ban']}}</td>
+              </tr>
+                {%endfor%}
+            </tbody>
+
+          </table>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <b>Tổng lợi nhuận: {{"{:,}".format(tong_loi_nhuan)}} VND</b>
+        </div>
+    </div>
+    
+</div>
+
+{%endblock%}

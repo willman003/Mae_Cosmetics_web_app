@@ -1,0 +1,196 @@
+{% extends 'layout/master.html' %}
+
+{% block title %} Trang chủ {% endblock %}
+
+{% block content %}
+
+<script>
+    setTimeout(function () {
+        $('#noti').delay(1000).hide(0)
+    }, 1000); // <-- time in milliseconds
+
+
+</script>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+        <li class="breadcrumb-item">
+            <a href="/loai_{{session['id_category']}}">
+                {%for category in danh_sach_category%}
+                {%if san_pham.ma_loai == category.ma_loai%} {{ category.ten_loai }} {%endif%}
+                {% endfor %}
+            </a>
+
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">{{san_pham.ten_san_pham|title}}</li>
+    </ol>
+</nav>
+{%for message in get_flashed_messages()%}
+<div class="alert alert-success" id="noti" role="alert">
+    {{message}}
+</div>
+{%endfor%}
+<div class="container"
+    style="margin-top: 50px; background-color: white; padding: 20px 20px; border-radius: 10px; margin-bottom: 100px;">
+    <div class="row">
+        <div class="col-md-4">
+            <img height="300px" src="{{san_pham.hinh_anh}}" class="card-img-top" alt="hinh_{{san_pham.ten_san_pham}}">
+        </div>
+        <div class="col-md-8">
+            <h3 style="color: #8850EA">{{san_pham.ten_san_pham|title}}</h3>
+            <p>{{thong_bao}}</p>
+            <p>{{chi_tiet['xuat_xu']}}</p>
+            <p>{{chi_tiet['dung_tich']}}</p>
+            <p>{{chi_tiet['cong_dung']}}</p>
+            <h4 style="color: black;"><b> {{"{:,}".format(san_pham.gia_ban)}} VND </b></h4>
+            <p>
+                <form method="POST">
+                    <div class="row">
+                        <div class="col-md-3">
+                            {{form_mua_hang.hidden_tag()}}
+                            {{form_mua_hang.so_luong(class="form-control", step="1", type="number", value="1", min="1")}}
+                        </div>
+
+                        <div class="col">
+                            {{form_mua_hang.submit_1(class="btn",style="background-color: #C7ADF5;")}}
+                            
+                        </div>
+
+                    </div>
+
+
+                </form>
+            </p>
+
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <hr>
+        </div>
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#home">Thông tin chi tiết</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#menu1">Đánh giá, nhận xét <span class="badge" style="background-color: #C7ADF5;">{{danh_sach_y_kien|length}}</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#menu2">Viết đánh giá sản phẩm</a>
+            </li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div class="tab-pane container active" id="home">
+                <div class="row">
+                    <p></p>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <h3>MÔ TẢ CHI TIẾT</h3>
+                    </div>
+
+                </div>
+                <div class="row mo-ta">
+                    <div class="col-md-12">
+                        {%if san_pham.ten_san_pham == 'SỮA RỬA MẶT TẨY TẾ BÀO CHẾT ST.IVES - TRÀ XANH'%}
+                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quasi maxime molestias a dolorem
+                        excepturi
+                        autem voluptatem? Recusandae quam officiis culpa voluptatibus aspernatur perspiciatis,
+                        praesentium
+                        saepe eligendi non ad. Aut, tempora.
+                        {%else%}
+                        {{mo_ta_dai}}
+                        {%endif%}
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="tab-pane container fade" id="menu1">
+                <div class="row">
+                    <p></p>
+                </div>
+
+                <div class="row">
+                    {%for y_kien in danh_sach_y_kien%}
+                    <div class="col-md-12">
+                        <div class="media">
+                            <div class="mr-3">
+                                <i class="fas fa-user-circle"></i>
+                            </div>
+                            <div class="media-body">
+                              <h5 class="mt-0"><b>{{y_kien['khach_hang']}}</b> <span style="font-size: small;"> <small> vào lúc {{ y_kien['ngay_tao']}}</small> </span> </h5> 
+                              
+                              <p>{{y_kien['noi_dung']}}</p>
+                            </div>
+                          </div>                    
+                    </div>
+                    {%endfor%}
+                </div>
+            </div>
+            <div class="tab-pane container fade" id="menu2">
+                <div class="row">
+                    <p></p>
+                </div>
+                {%if current_user.is_authenticated%}
+                <div class="row" style="margin-bottom: 10px;">
+                    <div class="col-md-12 text-center">
+                        <h3>Viết đánh giá</h3>
+                    </div>
+                    
+                </div>
+                <form method="POST">
+                    <div class="form-group row">
+                        {{form_y_kien.hidden_tag()}}
+                        {{form_y_kien.ma_khach_hang.label(for='ma_khach_hang',class='col-sm-2 col-form-label')}}
+                        {{form_y_kien.ma_khach_hang(class="form-control col-sm-10",value=current_user.ma_nguoi_dung,readonly=True)}}
+                    </div>
+                    <div class="form-group row">
+                        {{form_y_kien.tieu_de.label(for='tieu_de',class='col-sm-2 col-form-label')}}
+                        {{form_y_kien.tieu_de(class="form-control col-sm-10")}}
+                    </div>
+                    <div class="form-group row">
+                        {{form_y_kien.diem_danh_gia.label(for='diem_danh_gia',class='col-sm-2 col-form-label')}}
+                        {{form_y_kien.diem_danh_gia(class="form-control col-sm-10")}}
+                    </div>
+                    <div class="form-group row">
+                        {{form_y_kien.noi_dung(class="form-control",style="width:100%;")}}
+                        <script>
+                            CKEditor.replace("noi_dung");
+                        </script>
+                    </div>
+                    <div class="form-group row">
+                        {{form_y_kien.submit_2(class="btn btn-primary")}}
+                        
+                    </div>
+                    
+                                        
+                </form>
+                
+                {%else%}
+
+                <div class="row" style="position: relative; top: 60px;">
+                    <div class="col-md-12 text-center">
+                        Bạn chưa đăng nhập để thực hiện tính năng này!
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <p>Vui lòng nhấn vào <b> <a href="{{url_for('log_in',next=request.url)}}">đây</a></b> để đăng nhập</p>
+                    </div>
+                </div>
+
+
+                {%endif%}
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{%endblock%}

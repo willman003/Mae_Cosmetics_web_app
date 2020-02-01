@@ -1,0 +1,74 @@
+{%extends 'layout/master_manage.html'%}
+{%block content%}
+<div class="container" style="margin: 20px auto;">
+    <form method="POST">
+        {{form.hidden_tag()}}
+        <div class="form-row">
+            
+            <div class="form-group col-md-12 text-center">
+                <h4><b>{{san_pham.ten_san_pham|title}}</b></h4>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                Ngày nhập hàng gần nhất:
+            </div>
+            <div class="form-group col-md-8">
+                {%if san_pham.current_nhap_hang%} {{san_pham.current_nhap_hang}} {%else%} Không có dữ liệu {%endif%}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+               Giá nhập hiện tại:
+            </div>
+            <div class="form-group col-md-8">
+                {{san_pham.gia_nhap}} VND
+            </div>
+
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                Số lượng hiện tại trong kho:
+            </div>
+            <div class="form-group col-md-8">
+                {{san_pham.so_luong_ton}}
+            </div>
+
+        </div>
+        <div class="form-row">
+            <label class="form-group col-md-4" for="so_luong_nhap">Nhập thêm:</label>
+            {{form.so_luong_nhap(class="form-group form-control col-md-8")}}
+        </div>
+        <div class="form-row">
+            <label class="form-group col-md-4" for="so_luong_nhap">Giá nhập (Không đổi thì giữ nguyên):</label>
+            {{form.gia_nhap(class="form-group form-control col-md-8", value = san_pham.gia_nhap)}}
+        </div>
+        <div class="form-row">
+            <div class="col-md-12 text-center">
+                {{form.submit(class="btn btn-primary")}}
+            </div>
+        </div>
+        {%if chuoi_thong_bao != ''%}
+        <div class="form-row text-center">
+            <div class="form-group col-md-12">
+                <div class="alert alert-success" role="alert">
+                    {{chuoi_thong_bao}}
+                </div>
+            </div>
+        </div>
+        {%endif%}
+        <div class="form-group">
+            {% if form.errors %}
+            <ul class=errors>
+                {% for error in form.errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+
+        </div>
+    </form>
+
+
+</div>
+{%endblock%}

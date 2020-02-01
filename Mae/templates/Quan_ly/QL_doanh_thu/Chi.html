@@ -1,0 +1,118 @@
+{%extends 'layout/master_manage.html'%}
+{%block content%}
+<div class="accordion" id="accordionExample">
+    <div class="card">
+      <div class="card-header" id="headingOne">
+        <h2 class="mb-0">
+          <button class="btn btn-dark" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            Nhập khoản chi
+          </button>
+        </h2>
+      </div>
+  
+      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+        <div class="card-body">
+            <form method="POST">
+                <div class="container">
+                    {{form_1.hidden_tag()}}
+                    <div class="form-row">
+                        <div class="form-group col-md-12 text-center">
+                            <h3><b>Nhập khoản chi</b></h3>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <label class="form-group col-md-4" for="ten">Tên khoản chi*:</label>
+                        {{form_1.ten(class="form-group form-control col-md-8")}}
+                         
+                    </div>
+                    <div class="form-row">
+                        <label class="form-group col-md-4" for="noi_dung">Nội dung khoản chi:</label>
+                        {{form_1.noi_dung(class="form-group form-control col-md-8")}}
+                        
+                    </div>
+                    <div class="form-row">
+                        <label class="form-group col-md-4" for="so_tien">Số tiền*:</label>
+                        {{form_1.so_tien(class="form-group form-control col-md-8")}}
+                       
+                        
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-12 text-center">
+                            {{form_1.submit_1(class="btn btn-secondary")}}
+                        </div>
+                        
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-12 text-center">
+                            {{chuoi_thong_bao}}
+                        </div>
+                        
+                    </div>
+                </div>
+            </form>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header" id="headingTwo">
+        <h2 class="mb-0">
+          <button class="btn btn-dark collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            Xem các khoản chi
+          </button>
+        </h2>
+      </div>
+      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+        <div class="card-body">
+          <form method="POST">
+            {{form_2.hidden_tag()}}
+            <div class="container">
+              <div class="form-row">
+                <label class="form-group col" for="so_luong_nhap">Từ</label>
+                {{form_2.tu_ngay(class="form-group form-control col", value = ngay_dau_thang)}}
+                           
+                <label class="form-group col" for="so_luong_nhap">Đến</label>
+                {{form_2.den_ngay(class="form-group form-control col",value = ngay_cuoi_thang)}}
+                <div class="form-group col">
+                {{form_2.submit_2(class="btn btn-secondary")}}
+                </div>
+                
+              </div>
+             
+            </div>
+          </form>
+          {%if ds_chi%}
+          <div class="container-fluid">
+            <table class="table">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Thời gian</th>
+                  <th scope="col">Tên khoản chi</th>
+                  <th scope="col">Số tiền </th>
+                  <th scope="col">Nội dung</th>
+                </tr>
+              </thead>
+              <tbody>
+              {%for khoan_chi in ds_chi%}
+                <tr>
+                  <th scope="row">{{khoan_chi.thoi_gian.strftime("%d-%m-%Y %H:%M:%S")}}</th>
+                  <td>{{khoan_chi.ten}}</td>
+                  <td>{{"{:,}".format(khoan_chi.so_tien)}} VNĐ</td>
+                  <td>{{khoan_chi.noi_dung}}</td>
+                </tr>
+              {%endfor%}
+              </tbody>
+            </table>
+          </div>
+          {%endif%}
+        </div>
+      </div>
+    </div>
+    
+</div>
+
+
+
+
+
+{%endblock%}

@@ -1,0 +1,32 @@
+<!doctype html>
+    <html lang="en">
+    <head>
+        {% include 'layout/head.html' %}
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+        <style>
+            .navbar button{
+                margin-left: 30px;
+            }
+            
+            
+        </style>
+        <title>{%block title%} {%endblock%}</title>
+    </head>
+    
+
+    <body style="background-color: white;">
+
+        
+        <div class="content">
+            {% block content %}
+
+            {% endblock %}
+        </div>
+        
+        
+        
+
+        {% include 'layout/javascript.html' %}
+    </body>
+
+    </html>

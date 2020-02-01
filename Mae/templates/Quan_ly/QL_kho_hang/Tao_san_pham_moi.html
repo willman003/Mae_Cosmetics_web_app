@@ -1,0 +1,60 @@
+{%extends 'layout/master_manage.html'%}
+{%block content%}
+<form method="POST">
+    {{form.hidden_tag()}}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h3>Tạo sản phẩm mới</h3>
+            </div>
+        </div>
+        <div class="form-row">
+            {{form.ten_san_pham.label(for='ten_san_pham',class="form-group col-sm-2")}}
+            {{form.ten_san_pham(class="form-group form-control col-sm-10")}}
+        </div>
+        <div class="form-row">
+            {{form.ten_loai.label(for='ten_loai',class="form-group col-sm-2")}}
+            {{form.ten_loai(class="form-group form-control col-sm-10")}}
+        </div>
+        <div class="form-row">
+            {{form.gia_ban.label(for='gia_ban',class="form-group col-sm-2")}}
+            {{form.gia_ban(class="form-group form-control col-sm-10")}}
+        </div>
+        <div class="form-row">
+            {{form.gia_nhap.label(for='gia_nhap',class="form-group col-sm-2")}}
+            {{form.gia_nhap(class="form-group form-control col-sm-10")}}
+        </div>
+        <div class="form-row">
+            {{form.so_luong_ton.label(for='so_luong_ton',class="form-group col-sm-2")}}
+            {{form.so_luong_ton(class="form-group form-control col-sm-10", value = 0)}}
+        </div>
+        <div class="form-row">
+            {{form.thuoc_tinh.label(for='thuoc_tinh',class="form-group col-sm-2")}}
+            {{form.thuoc_tinh(class="form-group form-control col-sm-10")}}
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-12 text-center">
+                {{form.submit(class="btn btn-primary")}}
+            </div>
+        </div>
+        {% if form.errors %}
+        <div class="form-row">
+            <ul class=errors>
+                {% for error in form.errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+            
+        {%else%}
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h3>{{thong_bao}}</h3>
+            </div>
+        </div>
+
+        {% endif %}
+        
+    </div>
+</form>
+{%endblock%}

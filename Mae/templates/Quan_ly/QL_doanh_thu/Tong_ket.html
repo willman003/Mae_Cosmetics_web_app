@@ -1,0 +1,42 @@
+{%extends 'layout/master_manage.html'%}
+{%block content%}
+
+<form method="POST">
+    {{form.hidden_tag()}}
+    <div class="container">
+        <div class="form-row">
+            <label class="form-group col" for="so_luong_nhap">Từ</label>
+            {{form.tu_ngay(class="form-group form-control col")}}
+
+            <label class="form-group col" for="so_luong_nhap">Đến</label>
+            {{form.den_ngay(class="form-group form-control col")}}
+            <div class="form-group col">
+                {{form.submit_2(class="btn btn-secondary")}}
+            </div>
+
+        </div>
+
+    </div>
+</form>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <b>{{tieu_de}}</b>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            Tổng lợi nhuận: {{tong_loi_nhuan}}
+
+        </div>
+        <div class="col-md-12 text-center">
+            Tổng chi phí: {{tong_chi_phi}}
+        </div>
+        <div class="col-md-12 text-center">
+            Thực nhận: {{tong_loi_nhuan - tong_chi_phi}}
+        </div>
+    </div>
+</div>
+{%endblock%}

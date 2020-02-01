@@ -1,0 +1,223 @@
+{% extends 'layout/master.html' %}
+
+{% block title %} Trang chủ {% endblock %}
+
+{% block content %}
+<!-- <div class="container-fluid" style ="height: 100vh;background-size: cover;background-color:white ;background-image: url('../static/images/3002588.jpg')">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>We care your beauty</h1>
+
+        </div>
+    </div>
+</div> -->
+<div class="container-fluid" style="height: 60vh;padding: 0 0; margin:0 0;">
+    <div id="carouselExampleControls" style="margin:auto 0;" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner" style="width: 100%; height: 60vh;">
+            <div class="carousel-item active">
+                <img src="../../static/images/1655.jpg" class="d-block w-100" alt="banner1">
+            </div>
+            <div class="carousel-item">
+                <img src="../../static/images/sale-banner_4.jpg" class="d-block w-100" alt="banner2">
+            </div>
+            <div class="carousel-item">
+                <img src="../../static/images/sale_banner-1.jpg" class="d-block w-100" alt="banner3">
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+
+</div>
+<div class="container-fluid"
+    style="padding: 40px 0 ;background-image: url({{url_for('static',filename='images/background_2.jpg')}}); background-size: cover;">
+    <div class="container" style="margin-bottom: 20px;color:black;">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h2>Bán chạy trong tháng</h2>
+            </div>
+        </div>
+    </div>
+
+    <div id="multi-item-example" style="margin-top: 60px;" class="container carousel slide carousel-multi-item"
+        data-ride="carousel">
+
+
+        <a class="carousel-control-prev" href="#multi-item-example" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#multi-item-example" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+
+        <div class="carousel-inner" role="listbox">
+
+            <div class="carousel-item active" data-interval="5000">
+                <div class="row">
+                    {%for item in san_pham%}
+                    {%if item.ma_san_pham <=4 %}
+                    <div class="col-sm-3">
+                        <div class="card border-dark h-100" style="border-radius: 5px;">
+                            <img height="300px" class="card-img-top" src="{{item.hinh_anh}}" alt="Card image cap">
+                            <div class="card-body">
+                                <h4 class="card-title">{{item.ten_san_pham|title}}</h4>
+                                <p class="card-text">
+                                    {%for sp in lst_temp%}
+                                    {%if sp['ma_sp'] == item.ma_san_pham%}
+                                    {{"{:,}".format(sp['gia_ban'])}} VNĐ
+                                    {%endif%}
+                                    {%endfor%}
+                                </p>
+
+                            </div>
+                            <div class="card-footer text-center">
+                                <a href="chi-tiet/sp_{{item.ma_san_pham}}">Xem chi tiết</a>
+                            </div>
+                        </div>
+                    </div>
+                    {%endif%}
+                    {%endfor%}
+                </div>
+
+
+            </div>
+
+            <div class="carousel-item" data-interval="5000">
+                <div class="row">
+                    {%for item in san_pham%}
+                    {%if item.ma_san_pham >4 and item.ma_san_pham<=8 %}
+                    <div class="col-sm-3">
+                        <div class="card border-dark h-100" style="border-radius: 5px;">
+                            <img height="300px" class="card-img-top" src="{{item.hinh_anh}}" alt="Card image cap">
+                            <div class="card-body">
+                                <h4 class="card-title">{{item.ten_san_pham|title}}</h4>
+                                <p class="card-text">
+                                    {%for sp in lst_temp%}
+                                    {%if sp['ma_sp'] == item.ma_san_pham%}
+                                    {{"{:,}".format(sp['gia_ban'])}} VNĐ
+                                    {%endif%}
+                                    {%endfor%}
+                                </p>
+
+                            </div>
+                            <div class="card-footer text-center">
+                                <a href="chi-tiet/sp_{{item.ma_san_pham}}">Xem chi tiết</a>
+                            </div>
+                        </div>
+                    </div>
+                    {%endif%}
+                    {%endfor%}
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+<div class="container-fluid"
+    style="padding: 40px 0 ;background-image: url({{url_for('static',filename='images/background_3.jpg')}}); background-size: cover;">
+    <div class="container" style="">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h2>Sản phẩm khuyến mãi</h2>
+            </div>
+        </div>
+    </div>
+    <div id="multi-item-example-2" style="margin-top: 60px;" class="container carousel slide carousel-multi-item"
+        data-ride="carousel">
+
+        <a class="carousel-control-prev" href="#multi-item-example-2" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#multi-item-example-2" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+
+        <div class="carousel-inner" role="listbox">
+
+            <div class="carousel-item active" data-interval="5000">
+                <div class="row">
+                    {%for item in san_pham%}
+                    {%if item.ma_san_pham <=4 %}
+                    <div class="col-sm-3">
+                        <div class="card border-dark h-100" style="border-radius: 5px;">
+                            <img height="300px" class="card-img-top" src="{{item.hinh_anh}}" alt="Card image cap">
+                            <div class="card-body">
+                                <h4 class="card-title">{{item.ten_san_pham|title}}</h4>
+                                <p class="card-text">
+                                    {%for sp in lst_temp%}
+                                    {%if sp['ma_sp'] == item.ma_san_pham%}
+                                    {{"{:,}".format(sp['gia_ban'])}} VNĐ
+                                    {%endif%}
+                                    {%endfor%}
+                                </p>
+
+                            </div>
+                            <div class="card-footer text-center">
+                                <a href="chi-tiet/sp_{{item.ma_san_pham}}">Xem chi tiết</a>
+                            </div>
+                        </div>
+                    </div>
+                    {%endif%}
+                    {%endfor%}
+                </div>
+
+
+            </div>
+
+            <div class="carousel-item" data-interval="5000">
+                <div class="row">
+                    {%for item in san_pham%}
+                    {%if item.ma_san_pham >4 and item.ma_san_pham<=8 %}
+                    <div class="col-sm-3">
+                        <div class="card border-dark h-100" style="border-radius: 5px;">
+                            <img height="300px" class="card-img-top" src="{{item.hinh_anh}}" alt="Card image cap">
+                            <div class="card-body">
+                                <h4 class="card-title">{{item.ten_san_pham|title}}</h4>
+                                <p class="card-text">
+                                    {%for sp in lst_temp%}
+                                    {%if sp['ma_sp'] == item.ma_san_pham%}
+                                    {{"{:,}".format(sp['gia_ban'])}} VNĐ
+                                    {%endif%}
+                                    {%endfor%}
+                                </p>
+
+
+                            </div>
+                            <div class="card-footer text-center">
+                                <a href="chi-tiet/sp_{{item.ma_san_pham}}">Xem chi tiết</a>
+                            </div>
+                        </div>
+                    </div>
+                    {%endif%}
+                    {%endfor%}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+{% endblock %}

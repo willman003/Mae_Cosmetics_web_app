@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Bootstrap Example</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/87d1385e4d.js" crossorigin="anonymous"></script>
+    <style>
+        /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
+        .row.content {
+            height: 1500px
+        }
+
+        /* Set gray background color and 100% height */
+        .sidenav {
+            background-color: #C7ADF5;
+            height: 100%;
+        }
+
+        
+        /* Set black background color, white text and some padding */
+        footer {
+            background-color: #555;
+            color: white;
+            padding: 15px;
+        }
+
+        /* On small screens, set height to 'auto' for sidenav and grid */
+        @media screen and (max-width: 767px) {
+            .sidenav {
+                height: auto;
+                padding: 15px;
+            }
+
+            .row.content {
+                height: auto;
+            }
+        }
+
+        a{
+            color:white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="row content">
+            <div class="col-sm-3 sidenav">
+                <div class="col-sm-12 text-center" style="margin: 15px auto;">
+                    <img width="150px"src="/static/images/logo.png" alt="logo"> 
+
+                </div>
+                
+                <hr>
+                <div class="col-sm-12 text-center">
+                    <h4>Beauty Conference</h4>
+                </div>
+                
+                <hr>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Trang chủ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link dropdown-toggle " data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            Chuyên mục
+                        </a>
+                        <ul class="nav collapse flex-column" id="collapseExample" style="margin-left: 10px;">
+                            <a class="nav-link " href="#"><i class="fas fa-angle-right"></i> Skin care</a>
+                            <a class="nav-link " href="#"><i class="fas fa-angle-right"></i> Face care</a>
+                            <a class="nav-link " href="#"><i class="fas fa-angle-right"></i> Men care</a>
+                        </ul>
+                        
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Quay lại Mae's Store</a>
+                    </li>
+                    
+                </ul><br>
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Bạn muốn tìm điều gì?">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </span>
+                </div>
+            </div>
+
+            <div class="col-sm-9">
+                <iframe src="" style="border:none"width="100%" height="100%" style="margin:0px 0px;"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <footer class="container-fluid">
+        <p>Footer Text</p>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

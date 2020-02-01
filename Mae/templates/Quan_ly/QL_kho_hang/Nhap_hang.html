@@ -1,0 +1,69 @@
+{%extends 'layout/master_manage.html'%}
+{%block content%}
+<form class="container form-inline" method="POST">
+    {{form.hidden_tag()}}
+    <div class="form-group row">
+        <div class="col-sm-12">
+            {{form.noi_dung(class="form-control",placeholder="Nhập Tên sản phẩm hoặc Mã sản phẩm")}}
+        </div>
+        
+    </div>
+</form>
+
+{%if page_filter.items|length == 0%}
+<div class="container" style="margin: 20px auto;">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            {{thong_bao}}
+        </div>
+    </div>
+</div>
+{%else%}
+<div class="container" style="margin: 20px auto;">
+    
+    <div class="row">
+        <table class="table" style="margin: 40px auto;">
+            <thead class="thead-dark">
+
+                <tr>
+                    <th scope="col">Mã sản phẩm</th>
+                    <th scope="col">Tên sản phẩm</th>
+                    <th scop="col"></th>
+                    <th scope="col"></th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                {%for item in page_filter.items%}
+                <tr>
+                    <td>{{item.ma_san_pham}}</td>
+                    <td>{{item.ten_san_pham|title}}</td>
+                    
+                    <td><small><a href = "{{url_for('ql_kho_nhap_chi_tiet',ma_sp = item.ma_san_pham)}}"> Nhập hàng</a></small></td>
+                    <td><small><a href = "{{url_for('ql_cap_nhat_sp', ma_sp = item.ma_san_pham)}}">Sửa</a></small></td>
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                {%if page_filter.has_prev%}
+                  <li class="page-item"><a class="page-link" href="{{url_for('ql_kho_nhap_hang', page = page_filter.prev_num)}}">Trang trước</a></li>
+                {%endif%}
+                {%for i in range(1,page_filter.pages+1)%}
+                  <li class="page-item {%if page_filter.page == i%} active {%endif%}"><a class="page-link" href="{{url_for('ql_kho_nhap_hang', page = i)}}">{{i}}</a></li>
+                {%endfor%}  
+                {%if page_filter.has_next%}
+                  <li class="page-item"><a class="page-link" href="{{url_for('ql_kho_nhap_hang', page = page_filter.next_num)}}">Trang kế</a></li>
+                {%endif%}
+                </ul>
+            </nav>
+
+        </div>
+    </div>
+</div>
+{%endif%}
+{%endblock%}

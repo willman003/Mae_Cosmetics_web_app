@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paper-css/0.3.0/paper.css">
+
+    <title>Hoá đơn {{hd_id}}</title>
+    <style>
+        @media print {
+            @page {size: A5 }
+            .btn {
+                display: none;
+            }
+        }
+    </style>
+
+    <script>
+        function myFunction() {
+            window.print();
+        }
+    </script>
+</head>
+
+<body class="A5" style="background-color: white;">
+    <div class="container-fluid" style="margin: 10mm 5mm; padding: 20px 20px; width: 5.8in; height: 8.3in; border: 1px solid black;">
+        <div class="row text-center">
+            <div class="col-4" style="margin-top: 5mm;">
+                <img src="{{url_for('static', filename = 'images/logo.png')}}" style="position: relative; left: 5mm;"
+                    width="100%">
+
+                <p style="font-size:larger;margin-top: 5px; border: 0.5px solid black;"><b>{{hoa_don.nha_van_chuyen}}</b></p>
+            </div>
+            <div class="col-8 text-center" style="font-size: large; margin-top:4mm;">
+                Mã vận đơn: <b>{{hoa_don.ma_van_don}}</b> <br>
+                <div style="border-top: 1px dashed black;"></div>
+                Mã đơn hàng: <b>{{hoa_don.ma_hoa_don_kenh_ban}}</b>
+                <div style="border-top: 1px dashed black;"></div>
+                <small>{{hoa_don.ma_hoa_don}}</small>
+                
+            </div>
+        </div>
+        <div style="border-bottom: 1px solid black; margin-top: 5px;"></div>
+        <div class="row" style="font-size: 12pt;">
+            <div class="col-12">
+                Từ: <b>Mae Cosmetics - 0906.813.557</b> - Kênh bán: {{hoa_don.kenh_ban}} 
+                <p>21 đường DD8, Phường Tân Hưng Thuận, Quận 12, Hồ Chí Minh</p>
+            </div>
+        </div>
+        <div style="border-bottom: 1px dashed black;"></div>
+        <div class="row" style="font-size: 12pt;">
+            <div class="col-12">
+                Đến: <b>{{khach_hang.ten_khach_hang}} - {{khach_hang.dien_thoai}}</b>
+                <p>{{khach_hang.dia_chi}}</p>
+            </div>
+        </div>
+        <div style="border-bottom: 1px dashed black;"></div>
+        <div class="row" style="font-size: 12pt;">
+            <div class="col-12">
+                <b>Tổng sản phẩm:</b> {{don_hang|length}} - <b>Thành tiền:</b> {{"{:,}".format(tong_tien)}} VNĐ
+            </div>
+            {%for item in don_hang%}
+            <div class="col-12">
+                {{loop.index}} - {{item.ten_san_pham|title}} - SL:{{item.so_luong}}
+            </div>
+
+            {%endfor%}
+        </div>
+        <div style="border-bottom: 1px dashed black;"></div>
+        <div class="row">
+            <div class="col-12">
+                <b>Phí vận chuyển</b> : {{hoa_don.phi_van_chuyen}}
+            </div>
+        </div>
+        <div style="border-bottom: 1px dashed black;"></div>
+        <div class="row">
+            <div class="col-12">
+                <b>Ghi chú </b>: {{hoa_don.ghi_chu}}
+            </div>
+        </div>
+        
+        <div style="border-bottom: 1px dashed black;"></div>
+        <div class="row" style="padding-top: 10px;">
+            <div class="col-6 text-center">
+                <b>TIỀN THU NGƯỜI NHẬN</b>
+                <p>{{"{:,}".format(tong_tien_don)}} VND</p>
+            </div>
+            <div class="col-5 text-center" style="height: 50mm; border: 1px solid grey;">
+                Nhân viên lấy hàng
+                <p><small>Kí và ghi rõ họ tên</small></p>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 20px ;">
+            <div class="col-12 text-center">
+                <button type="button" onclick="myFunction()" class="btn btn-outline-dark">In hoá đơn</button>
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

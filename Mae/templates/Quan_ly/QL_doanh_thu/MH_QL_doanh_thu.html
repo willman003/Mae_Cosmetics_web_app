@@ -1,0 +1,36 @@
+{%extends 'layout/master_manage.html'%}
+{%block content%}
+<form method="POST" id="Xem_hoa_don">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/QL-don-hang">Quản lý doanh thu</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <button onclick="Th_doanh_thu.value ='ChiPhi';Xem_hoa_don.submit()" class="btn btn-warning nav-item">Chi</button>
+                <button onclick="Th_doanh_thu.value ='Today';Xem_hoa_don.submit()" class="btn btn-info nav-item">Ngày hôm nay</button>
+                <button onclick="Th_doanh_thu.value ='TheoNgay';Xem_hoa_don.submit()" class="btn btn-info nav-item">Theo ngày</button>
+                
+                <button onclick="Th_doanh_thu.value ='TongKet';Xem_hoa_don.submit()" class="btn btn-danger nav-item">Tổng kết</button>
+
+
+                <input name="Th_doanh_thu" type="hidden">
+
+
+
+            </div>
+        </div>
+    </nav>
+</form>
+
+<div class="main" style="padding: 0 0; height: 100vh">
+    <iframe src="{{dia_chi}}" style="border:none" width="100%" height="100%" style="margin:0px 0px;"></iframe>
+    
+</div>
+
+
+
+
+{%endblock%}

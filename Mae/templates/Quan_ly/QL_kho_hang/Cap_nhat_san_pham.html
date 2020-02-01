@@ -1,0 +1,76 @@
+{%extends 'layout/master_manage.html'%}
+{%block content%}
+<div class="container" style="margin: 20px auto;">
+    <form method="POST">
+        {{form.hidden_tag()}}
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <h4>Tên sản phẩm:</h4>
+            </div>
+            <div class="form-group col-md-8">
+                <h4><b>{{san_pham.ten_san_pham|title}}</b></h4>
+            </div>
+        </div>
+        
+        <div class="form-row">
+            <label class="form-group col-md-4" for="ten_loai">Loại:</label>
+            {{form.ten_loai(class="form-group custom-select form-control col-md-4", value = san_pham.ma_loai)}}
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                Lần cập nhật gần nhất:
+            </div>
+            <div class="form-group col-md-8">
+                {%if san_pham.current_edit_price%} {{san_pham.current_edit_price}} {%else%} Không có dữ liệu {%endif%}
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                Giá bán hiện tại:
+            </div>
+            <div class="form-group col-md-8">
+                {{"{:,}".format(san_pham.gia_ban)}} VND
+            </div>
+
+        </div>
+        <div class="form-row">
+            <label class="form-group col-md-4" for="so_luong_nhap">Giá bán mới:</label>
+            {{form.gia_ban(class="form-group form-control col-md-8", value = san_pham.gia_ban)}}
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                Giá nhập hiện tại:
+            </div>
+            <div class="form-group col-md-8">
+                {{"{:,}".format(san_pham.gia_nhap)}} VND
+            </div>
+
+        </div>
+        <div class="form-row">
+            <label class="form-group col-md-4" for="gia_nhap">Giá nhập:</label>
+            {{form.gia_nhap(class="form-group form-control col-md-8")}}
+        </div>
+        <div class="form-row">
+            <label class="form-group col-md-4" for="thuoc_tinh">Thuộc tính:</label>
+            {{form.thuoc_tinh(class="form-group form-control col-md-8")}}
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                {{form.submit(class="btn btn-success")}}
+            </div>
+        </div>
+        {%if chuoi_thong_bao != ''%}
+        <div class="form-row text-center" style="margin: 20px auto;">
+            <div class="form-group col-md-12">
+                <div class="alert alert-success" role="alert">
+                    {{chuoi_thong_bao}}
+                </div>
+            </div>
+        </div>
+        {%endif%}
+        
+    </form>
+
+
+</div>
+{%endblock%}

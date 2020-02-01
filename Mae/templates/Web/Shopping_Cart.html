@@ -1,0 +1,91 @@
+{%extends 'layout/master_1.html'%}
+{%block title%} Xem giỏ hàng {%endblock%}
+{%block content%}
+<div class="container-fluid" style="margin: 50px auto; padding: 20px 20px;border-radius: 10px;">
+    <div class="row">
+        <div class="col-md-8" style="padding: 10px 5px; border-radius: 10px; background-color: white;">
+            <div class=" row">
+                <div class="col-md-12 text-center">
+                    <h2> Giỏ hàng</h2>
+                    <p><small>{{session['Gio_hang']|length}} sản phẩm</small></p>
+                    
+                </div>
+
+            </div>
+
+            <div class="col-md-12">
+                <table class="table">
+                    <thead style="background-color: #C7ADF5;">
+                        <tr>
+                            <th scope="col">STT</th>
+                            <th scope="col">Tên sản phẩm</th>
+                            <th scope="col">Giá tiền</th>
+                            <th scope="col">Số lượng</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {%for item in session['Gio_hang']%}
+
+                        <tr>
+                            <th scope="row">{{loop.index}}</th>
+                            <td>{{item['ten_sp']|title}} <p><a href="/chi-tiet/sp_{{item['ma_sp']}}"><small>Xem chi
+                                            tiết</small></a></p>
+                            </td>
+                            <td>{{item['gia_ban']}}</td>
+                            <td>
+                                <form method="POST" class="form-inline"
+                                    action="{{url_for('cap_nhat_gio_hang', ma_sp = item['ma_sp'])}}">
+                                    {{form.hidden_tag()}}
+                                    {{form.so_luong(class="form-control text-center", value=item['so_luong'], style="width: 60px;")}}
+                                    <button title="Cập nhật số lượng" class="btn"
+                                        href="xem-gio-hang/cap-nhat/sp_{{item['ma_sp']}}" type="submit" style="margin: auto 10px; background-color: white;"><i
+                                            class="fas fa-sync-alt" style = "margin-right: 5px;"></i>Cập nhật
+                                    </button>
+                                    <a title="Xóa" href="xem-gio-hang/xoa/sp_{{item['ma_sp']}}">
+                                        <i class="far fa-trash-alt" style = "margin-right: 5px;"></i>
+                                        Xóa
+                                    </a>
+                                </form>
+
+                            </td>
+
+                        </tr>
+
+                        {%endfor%}
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+        <div class="col-md-4">
+            <div class="row" style="width: 95%; margin: auto 5px; padding: 20px 20px;color: black; background-color: #FDE58B; border-radius: 10px;">
+                <div class="col-md-12 text-center">
+                    <h2>Tổng cộng</h2>
+                    <hr>
+                </div>
+                <div class="col-md-12">
+                    <p> <span class= "col-md-2">Tổng tiền:</span> <span class="col-md-10">{{tong_tien}} VND </span></p> 
+                    <p> <span class= "col-md-4">Phí vận chuyển:</span> <span class="col-md-8">0 VND </span></p> 
+                    
+                                   
+                    <hr>
+                </div>
+                <div class="col-md-12 text-right">
+                    <p> <span class= "col-md-4">Thành tiền:</span> <span class="col-md-8">{{tong_tien}} VND </span></p>
+                    
+                </div>
+                <div class="col-md-12 text-center">
+                    <a href="/dat-hang" class="btn" style="background-color: #8850EA; color: white; border-radius: 10px; border: none;">Tiến hành đặt hàng</a>
+                </div>
+            </div>
+
+
+
+
+        </div>
+
+    </div>
+</div>
+{%endblock%}

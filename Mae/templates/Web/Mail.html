@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+</head>
+
+<body style="background-color: whitesmoke;">
+    <div class="container" style="background-color: white;margin-top: 50px; padding: 20px 20px; border-radius: 10px;">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <img class="img-fluid" src="{{url_for('static',filename = 'images/logo.png', _external=True)}}" width="20%" alt="logo">
+            </div>
+
+        </div>
+        <hr style="background-color: white; width:100%; border-bottom: 2px solid #8850EA;">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Cảm ơn bạn {{customer.ten_khach_hang}} đã mua hàng tại Mae Cosmetics</h2>
+                <p>
+                    Mae rất vui thông báo đơn hàng #{{ma_hoa_don}} của bạn đã được tiếp nhận và đang trong quá trình xử lý. Mae sẽ thông báo đến bạn ngay khi hàng chuẩn bị được giao.
+                </p>
+            </div>
+        </div>
+        <div class="row" style="margin-bottom: 10px;">
+            <div class="col-md-12">
+                <h5 style="color:#8850EA"><b>THÔNG TIN HÓA ĐƠN #{{ma_hoa_don}}</b><span style="color:gray;"><small> (Ngày {{hoa_don.ngay_tao_hoa_don.day}} Tháng {{hoa_don.ngay_tao_hoa_don.month}} Năm {{hoa_don.ngay_tao_hoa_don.year}})</small></span></h5>
+            </div>
+            <div class="col-md-12">
+                <div class="col">
+                    Tên khách hàng: {{customer.ten_khach_hang}}
+                </div>
+                <div class="col">
+                    Địa chỉ giao hàng: {{hoa_don.dia_chi_giao_hang}}
+                </div>
+                <div class="col">
+                    Số điện thoại: {{hoa_don.so_dien_thoai_nguoi_nhan}}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h5 style="color:#8850EA"><b>CHI TIẾT HÓA ĐƠN #{{ma_hoa_don}}</b></h5>
+            </div>
+            <div class="col-md-12">
+                <table class="table">
+                    <thead style="background-color: #C7ADF5;">
+                        <tr>
+                            <th scope="col">STT</th>
+                            <th scope="col">Tên sản phẩm</th>
+                            <th scope="col">Giá tiền</th>
+                            <th scope="col">Số lượng</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody style="background-color: whitesmoke;">
+                        {%for item in session['Gio_hang']%}
+
+                        <tr>
+                            <th scope="row">{{loop.index}}</th>
+                            <td>{{item['ten_sp']}} </td>
+                            <td>{{item['gia_ban']}}</td>
+                            <td>
+                                {{item['so_luong']}}
+
+                            </td>
+
+                        </tr>
+
+                        {%endfor%}
+                        
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="col-md-12 text-right">
+                <h5><b>Tổng giá trị đơn hàng: {{hoa_don.tong_tien/1000}}00 VND</b></h5>
+            </div>
+
+        </div>
+        <hr style="background-color: white; width:100%; border-bottom: 2px solid #8850EA;">
+        <div class="row">
+            <div class="col-md-12">
+                <p>Bạn cần được hỗ trợ ngay? Chỉ cần email hotro@mae.vn , hoặc gọi số điện thoại 1900xxx. Đội ngũ Mae Care luôn sẵn sàng hỗ trợ bạn bất kì lúc nào.</p>
+                <p>Một lần nữa Mae cảm ơn quý khách.</p>
+            </div>
+            <div class="col-md-12 text-right"><b>Mae Cosmetics</b></div>
+        </div>
+    </div>
+    <div class="container text-center" style ="color: grey;">
+        <div class="row">
+            <div class="col-md-12">
+                *Đây là email tự động. Không cần gửi trả lời.
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

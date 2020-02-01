@@ -1,0 +1,57 @@
+{%extends 'layout/master_manage.html'%}
+{%block content%}
+<form class="container form-inline" method="POST">
+    {{form.hidden_tag()}}
+    <div class="form-group row">
+        <div class="col-sm-12">
+            {{form.ma_hoa_don(class="form-control",placeholder="Nhập mã hóa đơn")}}
+        </div>
+        
+    </div>
+</form>
+
+
+<div class="container" style="margin: 20px auto;">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h3>{{tieu_de}}</h3>
+        </div>
+    </div>
+    {%if hoa_don != None%}
+    <div class="row">
+        <table class="table" style="margin: 40px auto;">
+            <thead class="thead-dark">
+
+                <tr>
+                    <th scope="col">Mã hoá đơn</th>
+                    <th scope="col">Kênh bán</th>
+                    <th scope="col">Ngày đặt hàng</th>
+                    <th scope="col">Tổng tiền</th>
+                    <th scope="col">Địa chỉ giao hàng</th>
+                    
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td scope="row">
+                        {{hoa_don.ma_hoa_don}}
+                        <small>
+                            <a href="{{url_for('chi_tiet_order', hd_id = hoa_don.ma_hoa_don)}}">(Chi tiết)</a>
+                        </small>
+                    </td>
+                    <td>{{hoa_don.kenh_ban}}</td>
+                    <td>{{hoa_don.ngay_tao_hoa_don.strftime("%d-%m-%Y %H:%M")}}</td>
+                    <td>{{"{:,}".format(hoa_don.tong_tien)}}</td>
+                    <td>{{hoa_don.khach_hang}}</td>
+                    
+                    
+
+                </tr>
+                
+            </tbody>
+        </table>
+    </div>
+    {%endif%}
+</div>
+{%endblock%}

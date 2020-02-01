@@ -1,0 +1,119 @@
+{%extends 'layout/master_manage.html'%}
+{%block content%}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{{url_for('ql_don_hang_tao_don_moi')}}">Thông tin</a></li>
+      <li class="breadcrumb-item"><a href="{{url_for('ql_don_hang_tao_don_moi',ma_hd = hoa_don.ma_hoa_don,page=1)}}">Đơn hàng</a></li>
+      <li class="breadcrumb-item active" aria-current="page"><a href="#">Hoàn tất</a></li>
+    </ol>
+  </nav>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 text-center">
+            <h3>Hóa đơn số {{hoa_don.ma_hoa_don}}</h3>
+        </div>
+    </div>
+    <form method="POST">
+        {{form_hoa_don.hidden_tag()}}
+        <div class="form-row">
+            {{form_hoa_don.ma_don_hang.label(class="form-group col-sm-2",for='ma_don_hang')}}
+            {{form_hoa_don.ma_don_hang(class="form-group form-control col-sm-10", value = hoa_don.ma_hoa_don_kenh_ban)}}
+
+        </div>
+        <div class="form-row">
+            <label class="form-group col-sm-2" for="kenh_ban">Kênh bán:</label>
+            {{form_hoa_don.kenh_ban(class="form-control form-group col-sm-2", value = hoa_don.kenh_ban)}}
+        </div>
+        <div class="form-row">
+            {{form_hoa_don.ho_ten.label(class="form-group col-sm-2",for='ho_ten')}}
+            {{form_hoa_don.ho_ten(class="form-group form-control col-sm-10",value = khach_hang.ten_khach_hang )}}
+
+        </div>
+        <div class="form-row">
+            {{form_hoa_don.dia_chi.label(class="form-group col-sm-2",for='dia_chi')}}
+            {{form_hoa_don.dia_chi(class="form-group form-control col-sm-10",value = khach_hang.dia_chi)}}
+
+        </div>
+        <div class="form-row">
+            {{form_hoa_don.so_dien_thoai.label(class="form-group col-sm-2",for='so_dien_thoai')}}
+            {{form_hoa_don.so_dien_thoai(class="form-group form-control col-sm-10",value = khach_hang.dien_thoai)}}
+
+        </div>
+        
+        
+        <div class="form-row">
+            {{form_hoa_don.nha_van_chuyen.label(class="form-group col-sm-2",for='nha_van_chuyen')}}
+            {{form_hoa_don.nha_van_chuyen(class="form-group form-control col-sm-2",value = hoa_don.nha_van_chuyen)}}
+            {{form_hoa_don.phi_van_chuyen.label(class="form-group col-sm-2 text-right",for='phi_van_chuyen')}}
+            {{form_hoa_don.phi_van_chuyen(class="form-group form-control col-sm-6",value = hoa_don.phi_van_chuyen)}}
+        </div>
+        <div class="form-row">
+            {{form_hoa_don.ma_van_don.label(class="form-group col-sm-2",for='ma_van_don')}}
+            {{form_hoa_don.ma_van_don(class="form-group form-control col-sm-10",value=hoa_don.ma_van_don)}}
+        </div>
+        <div class="form-row">
+            {{form_hoa_don.ghi_chu.label(class="form-group col-sm-2",for='ghi_chu')}}
+            {{form_hoa_don.ghi_chu(class="form-group form-control col-sm-10",value = hoa_don.ghi_chu)}}
+
+        </div>
+        
+        
+
+    </form>
+</div>
+<hr>
+<div class="container">
+    <div class="row">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Mã sản phẩm</th>
+                    <th scope="col">Tên sản phẩm</th>
+                    <th scope="col">Số lượng</th>
+                    <th scope="col">Giá bán</th>
+                    <th scope="col">Giá nhập</th>
+                    <th scope="col" style="color:brown;">Tổng tiền: {{"{:,}".format(tong_tien)}} VNĐ</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                {%for item in don_hang%}
+                <tr>
+                    <form method="POST" class="form-inline" action="{{url_for('ql_don_hang_cap_nhat_don_hang',ma_hd = item.ma_hoa_don, ma_sp = item.ma_san_pham)}}">
+                        {{form_don_hang.hidden_tag()}}
+                        <td>{{item.ma_san_pham}}</td>
+                        <td>{{item.ten_san_pham}}</td>
+                        <td>
+                            {{form_don_hang.so_luong(class="form-control text-center", value=item.so_luong, style="width: 60px;")}}
+                        </td>
+
+                        <td>{{form_don_hang.gia_ban(class="form-control text-center", value=item.gia_ban, style="width: 120px;")}}
+                        </td>
+                        <td>{{form_don_hang.gia_nhap(class="form-control text-center", value=item.gia_nhap, style="width: 120px;")}}
+                        </td>
+                        <td>
+                            <button title="Cập nhật số lượng" class="btn btn-light"    type="submit" style="margin: auto 10px; background-color: white;">
+                                Cập nhật
+                            </button>
+                        </td>
+                        <td>
+                                                        
+                            <a class="btn btn-light" href="{{url_for('ql_don_hang_xoa_khoi_don_hang_2',ma_hd = item.ma_hoa_don,ma_sp = item.ma_san_pham)}}">Xóa</a>
+                        </td>
+
+
+                    </form>
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+
+    </div>
+    <div class="row" style="margin-bottom: 10px;">
+        <div class="col-sm-12 text-center">
+            <button class="btn btn-danger"><a style=" color:white;" href="{{url_for('ql_kho_xuat_hang',hd_id = hoa_don.ma_hoa_don)}}">Hoàn tất</a></button>
+        </div>
+    </div>
+
+</div>
+{%endblock%}

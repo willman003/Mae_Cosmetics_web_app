@@ -1,0 +1,75 @@
+{%extends 'layout/master_manage.html'%}
+{%block content%}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item active" aria-current="page"><a href="{{url_for('ql_don_hang_tao_don_moi')}}">Thông tin</a></li>
+      <li class="breadcrumb-item"><a href="#">Đơn hàng</a></li>
+      <li class="breadcrumb-item"><a href="#">Hoàn tất</a></li>
+    </ol>
+  </nav>
+  
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 text-center">
+            <h3>Tạo đơn hàng mới</h3>
+        </div>
+    </div>
+    <form method="POST">
+        {{form_hoa_don.hidden_tag()}}
+        <div class="form-row">
+            {{form_hoa_don.ma_don_hang.label(class="form-group col-sm-2",for='ma_don_hang')}}
+            {{form_hoa_don.ma_don_hang(class="form-group form-control col-sm-10")}}
+          
+        </div>
+        <div class="form-row">
+            <label class="form-group col-sm-2" for="kenh_ban">Kênh bán:</label>
+            {{form_hoa_don.kenh_ban(class="form-control form-group col-sm-2", value="Sendo")}}
+        </div>
+        <div class="form-row">
+            {{form_hoa_don.ho_ten.label(class="form-group col-sm-2",for='ho_ten')}}
+            {{form_hoa_don.ho_ten(class="form-group form-control col-sm-10")}}
+          
+        </div>
+        <div class="form-row">
+            {{form_hoa_don.dia_chi.label(class="form-group col-sm-2",for='dia_chi')}}
+            {{form_hoa_don.dia_chi(class="form-group form-control col-sm-10")}}
+          
+        </div>
+        <div class="form-row">
+            {{form_hoa_don.so_dien_thoai.label(class="form-group col-sm-2",for='so_dien_thoai')}}
+            {{form_hoa_don.so_dien_thoai(class="form-group form-control col-sm-10")}}
+          
+        </div>
+        <div class="form-row">
+            {{form_hoa_don.nha_van_chuyen.label(class="form-group col-sm-2",for='nha_van_chuyen')}}
+            {{form_hoa_don.nha_van_chuyen(class="form-group form-control col-sm-2")}}
+            {{form_hoa_don.phi_van_chuyen.label(class="form-group col-sm-2 text-right",for='phi_van_chuyen')}}
+            {{form_hoa_don.phi_van_chuyen(class="form-group form-control col-sm-6")}}
+
+          
+        </div>
+        <div class="form-row">
+            {{form_hoa_don.ma_van_don.label(class="form-group col-sm-2",for='ma_van_don')}}
+            {{form_hoa_don.ma_van_don(class="form-group form-control col-sm-10")}}
+        </div>
+        <div class="form-row">
+            {{form_hoa_don.ghi_chu.label(class="form-group col-sm-2",for='ghi_chu')}}
+            {{form_hoa_don.ghi_chu(class="form-group form-control col-sm-10")}}
+          
+        </div>
+        <div class="form-row">
+            <div class="col-sm-12 text-center">
+                {{form_hoa_don.submit(class="btn btn-success")}}
+
+            </div>
+
+        </div>
+        <div class="form-row">
+            {% if form_hoa_don.errors %}
+            {{ form_hoa_don.errors }}
+            {% endif %}
+        </div>
+        
+    </form>
+</div>
+{%endblock%}

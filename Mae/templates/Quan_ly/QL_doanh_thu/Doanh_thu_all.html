@@ -1,0 +1,74 @@
+{%extends 'layout/master_manage.html'%}
+{%block content%}
+<div class="container">
+    <form method="POST">
+        {{form.hidden_tag()}}
+        <div class="container">
+          <div class="form-row">
+            <label class="form-group col" for="so_luong_nhap">Từ</label>
+            {{form.tu_ngay(class="form-group form-control col")}}
+                       
+            <label class="form-group col" for="so_luong_nhap">Đến</label>
+            {{form.den_ngay(class="form-group form-control col")}}
+            <div class="form-group col">
+            {{form.submit_2(class="btn btn-secondary")}}
+            </div>
+            
+          </div>
+         
+        </div>
+      </form>
+</div>
+<div class="chart-container" style="height: 200; width:200;">
+    <canvas id="myChart"></canvas>
+    <script>
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: [
+                    {%for ngay in danh_sach_cac_ngay%}
+                    "{{ngay['ngay_tao_hoa_don']}}",
+                    {%endfor%}
+                ],
+                datasets: [{
+                    
+                    label: 'Lợi nhuận',
+                    data: [
+                    {%for ngay in danh_sach_cac_ngay%}
+                    "{{ ngay['tong_loi_nhuan']}} ",
+                    {%endfor%}
+                    ],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+</div>
+
+{%endblock%}

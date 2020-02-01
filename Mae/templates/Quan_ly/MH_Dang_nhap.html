@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #C7ADF5;
+        }
+
+        #dangnhap {
+            position: relative;
+            /* left: 100px; */
+            top: 25vh;
+            width: 30%;
+            padding: 20px 20px;
+            border-radius: 10px;
+        }
+
+        form a:link {
+            color: #5516C0;
+            /* text-decoration: none; */
+        }
+
+        form a:hover {
+            color: #BF01F9
+        }
+    </style>
+    <script src="https://kit.fontawesome.com/87d1385e4d.js" crossorigin="anonymous"></script>
+
+    <title>Mae Cosmetics</title>
+</head>
+
+<body>
+
+    <div class="container" id="dangnhap" style="color: #5516C0;background-color: white;">
+        <h2 class="text-center"><b>Đăng nhập</b></h2>
+        <hr class="col-md-12" style="border-top: 1px solid white; width: 100%;">
+        <form method='POST'>
+            {{form_dang_nhap.hidden_tag()}}
+            <div class="form-group">
+                {{form_dang_nhap.ten_dang_nhap.label(for='ten_dang_nhap')}}
+                {{form_dang_nhap.ten_dang_nhap(class='form-control')}}
+
+            </div>
+            <div class="form-group">
+                {{form_dang_nhap.password.label(for='password')}}
+                {{form_dang_nhap.password(class='form-control')}}
+
+            </div>
+            <div class="form-group">
+                <small>Chưa có tài khoản ? <a href="/dang-ky"> Đăng ký </a></small>
+            </div>
+
+            <!-- <div class="form-group form-check">
+              <input type="checkbox" class="form-check-input" id="exampleCheck1">
+              <label class="form-check-label" for="exampleCheck1">Check me out</label>
+            </div> -->
+            <button type="submit" class="btn" style="color: white; background-color: 	#5516C0;">Đăng nhập</button>
+        </form>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

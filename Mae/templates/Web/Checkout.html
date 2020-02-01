@@ -1,0 +1,97 @@
+{%extends 'layout/master_1.html'%}
+{%block title%} Xem giỏ hàng {%endblock%}
+{%block content%}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/xem-gio-hang">Thông tin đơn hàng</a></li>
+        
+        <li class="breadcrumb-item active" aria-current="page">Thông tin thanh toán</li>
+    </ol>
+</nav>
+<div class="container-fluid" style="padding: 20px 40px; padding-bottom: 20px; margin: 20px auto;">
+    
+    <div class="row">
+        <div class="col-md-12 text-center" >
+            <h2>Thanh toán</h2>
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <h4 class="text-center">Thông tin khách hàng</h4>
+            <form method="POST">
+                {{form.hidden_tag()}}
+                <div class="form-group">
+                    
+                    <label for="ho_ten">Họ tên:</label>
+                    
+                    {{form.ho_ten(class='form-control', value=customer.ten_khach_hang, readonly=True)}}
+                       
+                </div>
+                <div class="form-group">
+                    <label for="dia_chi">Địa chỉ giao hàng:</label>
+                    {{form.dia_chi(class='form-control', value=customer.dia_chi)}}    
+                </div>
+                <div class="form-group">
+                    <label for="dien_thoai">Số điện thoại người nhận:</label>
+                    {{form.dien_thoai(class='form-control',value=customer.dien_thoai)}}
+                </div>
+                <div class="form-group">
+                    <label for="ghi_chu">Ghi chú:</label>
+                    {{form.ghi_chu(class='form-control')}}
+
+                </div> 
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-primary">Hoàn tất</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-4" style="background-color: whitesmoke;">
+            <h4 class="text-center">Đơn hàng</h4>
+            <hr>
+            
+            <div class="row text-center">
+                <div class="col">
+                    <b>STT</b>
+                </div>
+                <div class="col">
+                    <b>Tên sản phẩm</b>
+                </div>
+                <div class="col">
+                    <b>Giá bán</b>
+                </div>
+                <div class="col">
+                    <b>Số lượng</b>
+                </div>
+
+            </div>
+            <hr>
+            {%for item in session['Gio_hang']%}
+            <div class="row text-center">
+                <div class="col">
+                    {{loop.index}}
+                </div>
+                <div class="col">
+                    {{item['ten_sp']|title}}
+                </div>
+                <div class="col">
+                    {{item['gia_ban']}}
+                </div>
+                <div class="col">
+                    {{item['so_luong']}}
+                </div>
+            </div>
+                       
+            {%endfor%}
+            <hr>
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <b>Tổng cộng: {{"{:,}".format(tong_tien)}} VND </b>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{%endblock%}
