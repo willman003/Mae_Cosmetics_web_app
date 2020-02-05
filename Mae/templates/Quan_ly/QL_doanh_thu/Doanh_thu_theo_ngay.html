@@ -18,6 +18,7 @@
                 <th scope="col">Tên sản phẩm</th>
                 <th scope="col">Số lượng</th>
                 <th scope="col">Tổng tiền</th>
+                <th scope="col">Tổng lợi nhuận</th>
               </tr>
             </thead>
             <tbody>
@@ -28,6 +29,7 @@
                 <td>{{item['ten_sp']|title}}</td>
                 <td>{{item['so_luong']}}</td>
                 <td>{{item['so_luong'] * item['gia_ban']}}</td>
+                <td>{{item['loi_nhuan']}}</td>
               </tr>
                 {%endfor%}
             </tbody>

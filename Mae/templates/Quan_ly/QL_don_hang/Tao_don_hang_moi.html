@@ -13,6 +13,11 @@
         <div class="col-sm-12 text-center">
             <h3>Tạo đơn hàng mới</h3>
         </div>
+        {%if thong_bao != ''%}
+        <div class="col-sm-12 text-center" style ="color:red;">
+            <b>{{thong_bao}}</b>
+        </div>
+        {%endif%}
     </div>
     <form method="POST">
         {{form_hoa_don.hidden_tag()}}
@@ -44,7 +49,7 @@
             {{form_hoa_don.nha_van_chuyen.label(class="form-group col-sm-2",for='nha_van_chuyen')}}
             {{form_hoa_don.nha_van_chuyen(class="form-group form-control col-sm-2")}}
             {{form_hoa_don.phi_van_chuyen.label(class="form-group col-sm-2 text-right",for='phi_van_chuyen')}}
-            {{form_hoa_don.phi_van_chuyen(class="form-group form-control col-sm-6")}}
+            {{form_hoa_don.phi_van_chuyen(class="form-group form-control col-sm-6", value = 0)}}
 
           
         </div>

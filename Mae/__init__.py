@@ -16,8 +16,8 @@ app.config['SECRET_KEY'] = "Impossible to guess"
 app.config['DEBUG'] = True
 app.config['TESTING'] = False
 app.config['CSRF_ENABLED'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///du_lieu/ql_mae.db?check_same_thread=False'
+# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///du_lieu/ql_mae.db?check_same_thread=False'
 app.config['SQLALCHEMY_ECHO'] = True
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 

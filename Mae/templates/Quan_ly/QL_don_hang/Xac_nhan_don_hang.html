@@ -72,6 +72,7 @@
                     <th scope="col">Số lượng</th>
                     <th scope="col">Giá bán</th>
                     <th scope="col">Giá nhập</th>
+                    <th scop="col">Lợi nhuận</th>
                     <th scope="col" style="color:brown;">Tổng tiền: {{"{:,}".format(tong_tien)}} VNĐ</th>
 
                 </tr>
@@ -91,6 +92,7 @@
                         </td>
                         <td>{{form_don_hang.gia_nhap(class="form-control text-center", value=item.gia_nhap, style="width: 120px;")}}
                         </td>
+                        <td>{{item.loi_nhuan}}</td>
                         <td>
                             <button title="Cập nhật số lượng" class="btn btn-light"    type="submit" style="margin: auto 10px; background-color: white;">
                                 Cập nhật

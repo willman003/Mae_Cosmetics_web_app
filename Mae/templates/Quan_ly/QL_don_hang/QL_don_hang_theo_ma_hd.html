@@ -10,14 +10,18 @@
     </div>
 </form>
 
-
+{%if page_filter.items|length == 0%}
 <div class="container" style="margin: 20px auto;">
     <div class="row">
         <div class="col-md-12 text-center">
-            <h3>{{tieu_de}}</h3>
+            {{chuoi_thong_bao}}
         </div>
     </div>
-    {%if hoa_don != None%}
+</div>
+{%else%}
+
+<div class="container" style="margin: 20px auto;">
+        
     <div class="row">
         <table class="table" style="margin: 40px auto;">
             <thead class="thead-dark">
@@ -28,11 +32,13 @@
                     <th scope="col">Ngày đặt hàng</th>
                     <th scope="col">Tổng tiền</th>
                     <th scope="col">Địa chỉ giao hàng</th>
+                    <th scope="col"></th>
                     
                     <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
+                {%for hoa_don in page_filter.items%}
                 <tr>
                     <td scope="row">
                         {{hoa_don.ma_hoa_don}}
@@ -44,14 +50,36 @@
                     <td>{{hoa_don.ngay_tao_hoa_don.strftime("%d-%m-%Y %H:%M")}}</td>
                     <td>{{"{:,}".format(hoa_don.tong_tien)}}</td>
                     <td>{{hoa_don.khach_hang}}</td>
+                    <td>{%if hoa_don.trang_thai == 13%}Đơn hoàn{%endif%}</td>
+                    <td><a href = "{{url_for('ql_don_hang_xoa',hd_id = hoa_don.ma_hoa_don)}}">Xoá</a></td>
                     
                     
 
                 </tr>
+                {%endfor%}
                 
             </tbody>
         </table>
     </div>
-    {%endif%}
+    <div class="row">
+        <div class="col-sm-12">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                {%if page_filter.has_prev%}
+                  <li class="page-item"><a class="page-link" href="{{url_for('ql_don_hang_theo_ma', page = page_filter.prev_num)}}"><<</a></li>
+                {%endif%}
+                {%for i in range(1,page_filter.pages+1)%}
+                  <li class="page-item {%if page_filter.page == i%} active {%endif%}"><a class="page-link" href="{{url_for('ql_don_hang_theo_ma', page = i)}}">{{i}}</a></li>
+                {%endfor%}  
+                {%if page_filter.has_next%}
+                  <li class="page-item"><a class="page-link" href="{{url_for('ql_don_hang_theo_ma', page = page_filter.next_num)}}">>></a></li>
+                {%endif%}
+                </ul>
+            </nav>
+
+        </div>
+    </div>
 </div>
+{%endif%}
+
 {%endblock%}

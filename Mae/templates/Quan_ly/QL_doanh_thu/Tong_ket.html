@@ -27,16 +27,40 @@
 </div>
 <div class="container">
     <div class="row">
-        <div class="col-md-12 text-center">
-            Tổng lợi nhuận: {{tong_loi_nhuan}}
+        <div class="col-md-4 text-left">
+            <b>Tổng lợi nhuận:</b> 
 
         </div>
-        <div class="col-md-12 text-center">
-            Tổng chi phí: {{tong_chi_phi}}
-        </div>
-        <div class="col-md-12 text-center">
-            Thực nhận: {{tong_loi_nhuan - tong_chi_phi}}
+        <div class="col-md-8 text-left">
+            {{"{:,}".format(tong_loi_nhuan)}} VND
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-4 text-left">
+            <b>Tổng chi phí:</b>
+
+        </div>
+        <div class="col-md-8 text-left">
+            {{"{:,}".format(tong_chi_phi)}} VND
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-4 text-left">
+            <b>Số đơn hoàn:</b>
+        </div>
+        <div class="col-md-8 text-left">
+            {{so_don_hoan}}
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <b>Thực nhận:</b> {{"{:,}".format(tong_loi_nhuan - tong_chi_phi)}} VNĐ
+
+        </div>
+        
+    </div>
+   
 </div>
 {%endblock%}
