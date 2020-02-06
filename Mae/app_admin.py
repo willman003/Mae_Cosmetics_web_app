@@ -65,7 +65,7 @@ def user_register():
         form.populate_obj(user)
         user.ten_dang_nhap = form.ten_dang_nhap.data
         user.mat_khau_hash = generate_password_hash(form.mat_khau.data)
-        user.ma_loai_nguoi_dung = 2
+        user.ma_loai_nguoi_dung = 1
         db.session.add(user)
         db.session.commit()
         
