@@ -48,8 +48,9 @@ class Form_dang_ky(FlaskForm):
 
 class Form_hoa_don(FlaskForm):
     ma_don_hang = fields.StringField('Mã đơn hàng:')
-    kenh_ban = fields.SelectField(choices=[('Sendo','Sendo'),('Shopee','Shopee'),('Lazada','Lazada'),('Khác','Khác')])
+    kenh_ban = fields.SelectField(choices=[('Sendo','Sendo'),('Shopee','Shopee'),('Lazada','Lazada'),('Khác','Khác'),('Người quen','Người quen'),('Facebook','Facebook'),('Zalo','Zalo')])
     ho_ten = fields.StringField('Tên khách hàng:')
+    ngay_tao = fields.DateField('Ngày:',widget=DateInput())
     dia_chi = fields.StringField('Địa chỉ:')
     so_dien_thoai = fields.StringField('Số điện thoại:')
     nha_van_chuyen = fields.SelectField('Hãng ship:', choices=[

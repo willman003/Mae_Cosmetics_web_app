@@ -32,6 +32,7 @@
                     <th scope="col">Ngày đặt hàng</th>
                     <th scope="col">Tổng tiền</th>
                     <th scope="col">Địa chỉ giao hàng</th>
+                    <th scope="col">Điện thoại</th>
                     <th scope="col"></th>
                     
                     <th scope="col"></th>
@@ -50,6 +51,7 @@
                     <td>{{hoa_don.ngay_tao_hoa_don.strftime("%d-%m-%Y %H:%M")}}</td>
                     <td>{{"{:,}".format(hoa_don.tong_tien)}}</td>
                     <td>{{hoa_don.khach_hang}}</td>
+                    <td>{{dict_kh[hoa_don.ma_hoa_don]}}</td>
                     <td>{%if hoa_don.trang_thai == 13%}Đơn hoàn{%endif%}</td>
                     <td><a href = "{{url_for('ql_don_hang_xoa',hd_id = hoa_don.ma_hoa_don)}}">Xoá</a></td>
                     

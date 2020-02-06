@@ -29,6 +29,8 @@
         <div class="form-row">
             <label class="form-group col-sm-2" for="kenh_ban">Kênh bán:</label>
             {{form_hoa_don.kenh_ban(class="form-control form-group col-sm-2", value="Sendo")}}
+            <label class="form-group col-sm-2 text-center" for="ngay_tao">Ngày:</label>
+            {{form_hoa_don.ngay_tao(class="form-control form-group col-sm-4", value = today.date())}}
         </div>
         <div class="form-row">
             {{form_hoa_don.ho_ten.label(class="form-group col-sm-2",for='ho_ten')}}

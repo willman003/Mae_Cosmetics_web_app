@@ -92,7 +92,7 @@
                         </td>
                         <td>{{form_don_hang.gia_nhap(class="form-control text-center", value=item.gia_nhap, style="width: 120px;")}}
                         </td>
-                        <td>{{item.loi_nhuan}}</td>
+                        <td>{{"{:,}".format(item.loi_nhuan*item.so_luong)}}</td>
                         <td>
                             <button title="Cập nhật số lượng" class="btn btn-light"    type="submit" style="margin: auto 10px; background-color: white;">
                                 Cập nhật

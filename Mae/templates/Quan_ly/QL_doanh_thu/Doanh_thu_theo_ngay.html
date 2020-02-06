@@ -28,8 +28,8 @@
                 <td>{{item['ma_sp']}}</td>
                 <td>{{item['ten_sp']|title}}</td>
                 <td>{{item['so_luong']}}</td>
-                <td>{{item['so_luong'] * item['gia_ban']}}</td>
-                <td>{{item['loi_nhuan']}}</td>
+                <td>{{"{:,}".format(item['so_luong'] * item['gia_ban'])}} VNĐ</td>
+                <td>{{"{:,}".format(item['loi_nhuan'])}} VNĐ</td>
               </tr>
                 {%endfor%}
             </tbody>
@@ -38,7 +38,7 @@
     </div>
     <div class="row">
         <div class="col-md-12 text-right">
-            <b>Tổng lợi nhuận: {{"{:,}".format(tong_loi_nhuan)}} VND</b>
+            <b>Tổng lợi nhuận: {{"{:,}".format(tong_loi_nhuan)}} VNĐ</b>
         </div>
     </div>
     
