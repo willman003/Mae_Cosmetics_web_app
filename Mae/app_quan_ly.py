@@ -637,6 +637,19 @@ def ql_doanh_thu_tong_ket():
             so_don_hoan += 1
     return render_template('Quan_ly/QL_doanh_thu/Tong_ket.html', tong_chi_phi = tong_chi_phi, so_don_hoan = so_don_hoan, tong_loi_nhuan = tong_loi_nhuan, tieu_de = tieu_de,form = form)    
 
+@app.route('/private/update', methods =['GET','POST'])
+def private_update():
+    if not current_user.is_authenticated or current_user.ma_loai_nguoi_dung != 2:
+        return redirect(url_for('log_in', next=request.url))
+    ds_hoa_don = Hoa_don.query.all()
+    for item in ds_hoa_don:
+        a = item.ngay_tao_hoa_don
+        
+        chuoi = datetime(a.year,1,a.day,a.hour,a.minute,a.second,a.microsecond)
+        item.ngay_tao_hoa_don = chuoi
+        db.session.add(item)
+        db.session.commit()
+    return redirect(url_for('index'))
 
 admin = Admin(app, name = "Admin", index_view=MyAdminIndexView(name="Admin"), template_mode='bootstrap3')
 admin.add_view(admin_view(Loai_nguoi_dung, db.session, 'Loại người dùng'))
