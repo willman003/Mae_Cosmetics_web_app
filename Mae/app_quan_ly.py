@@ -275,12 +275,12 @@ def ql_don_hang_hoan(page):
     if not current_user.is_authenticated or current_user.ma_loai_nguoi_dung != 2:
         return redirect(url_for('log_in', next=request.url))
     form = Form_don_hang_hoan()
-    page_filter = Hoa_don.query.join(Khach_hang).paginate(page,10,False)
+    page_filter = Hoa_don.query.join(Khach_hang).order_by(desc(Hoa_don.ngay_tao_hoa_don)).paginate(page,10,False)
     chuoi_thong_bao = ''
     if form.validate_on_submit():
         tim_kiem = form.ma_hoa_don.data.strip()
         
-        page_filter = Hoa_don.query.join(Khach_hang).filter(Hoa_don.ma_hoa_don == tim_kiem).paginate(page,5,False)
+        page_filter = Hoa_don.query.join(Khach_hang).filter(Hoa_don.ma_hoa_don == tim_kiem).order_by(desc(Hoa_don.ngay_tao_hoa_don)).paginate(page,5,False)
         
         if len(page_filter.items) == 0:
             chuoi_thong_bao = 'Không tìm thấy mã hóa đơn ' + tim_kiem
@@ -293,12 +293,12 @@ def ql_don_hang_theo_ma(page):
     if not current_user.is_authenticated or current_user.ma_loai_nguoi_dung != 2:
         return redirect(url_for('log_in', next=request.url))
     form = Form_don_hang_hoan()
-    page_filter = Hoa_don.query.join(Khach_hang).paginate(page,5,False)
+    page_filter = Hoa_don.query.join(Khach_hang).order_by(desc(Hoa_don.ngay_tao_hoa_don)).paginate(page,5,False)
     chuoi_thong_bao = ''
     if form.validate_on_submit():
         tim_kiem = form.ma_hoa_don.data.strip()
         
-        page_filter = Hoa_don.query.join(Khach_hang).filter(Hoa_don.ma_hoa_don == tim_kiem).paginate(page,5,False)
+        page_filter = Hoa_don.query.join(Khach_hang).filter(Hoa_don.ma_hoa_don == tim_kiem).order_by(desc(Hoa_don.ngay_tao_hoa_don)).paginate(page,5,False)
         
         if len(page_filter.items) == 0:
             chuoi_thong_bao = 'Không tìm thấy mã hóa đơn ' + tim_kiem
