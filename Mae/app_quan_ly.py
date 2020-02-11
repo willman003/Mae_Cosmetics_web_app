@@ -70,23 +70,6 @@ def cap_nhat_tu_API():
         thong_bao = "Cập nhật hoàn tất lúc %s" % datetime.now().strftime('%d-%m-%Y %H:%M:%S')
     return render_template('Quan_ly/QL_don_hang/Cap_nhat_don_hang.html',ten = ten, thong_bao = thong_bao, dia_chi = dia_chi)
 
-@app.route('/cap-nhat-san-pham',methods=['GET','POST'])
-def cap_nhat_sp_tu_API():
-    if not current_user.is_authenticated or current_user.ma_loai_nguoi_dung != 2:
-        return redirect(url_for('log_in', next=request.url))
-    thong_bao = ''
-    ten = "sản phẩm"
-    dia_chi = url_for('cap_nhat_sp_tu_API')
-    if request.method == 'POST':
-        danh_sach_sp = dbSession.query(San_pham).all()
-        for item in danh_sach_sp:
-            sp = cap_nhat_san_pham(item)
-            
-        thong_bao = "Cập nhật hoàn tất lúc %s" % datetime.now().strftime('%d-%m-%Y %H:%M:%S')
-    return render_template('Quan_ly/QL_don_hang/Cap_nhat_don_hang.html',ten = ten, thong_bao = thong_bao, dia_chi = dia_chi)
-
-
-
 @app.route('/QL-don-hang', methods =['GET','POST'])
 def ql_don_hang():
     if not current_user.is_authenticated or current_user.ma_loai_nguoi_dung != 2:
