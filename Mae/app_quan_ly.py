@@ -561,31 +561,30 @@ def ql_doanh_thu_theo_ngay():
         if dict_temp not in danh_sach_cac_ngay:
             danh_sach_cac_ngay.append(dict_temp)
     
-    tong_loi_nhuan = 0
+    tong_doanh_thu = 0
     danh_sach_hoa_don = []
     for item in hoa_don:
         if item.trang_thai != 13:
-            loi_nhuan_1_hoa_don = 0
+            doanh_thu_1_hoa_don = 0
             dict_temp = {}
             don_hang = Don_hang.query.filter(Don_hang.ma_hoa_don == item.ma_hoa_don).all()
             
             for item_1 in don_hang:
-                tong_loi_nhuan += item_1.loi_nhuan
-                san_pham = San_pham.query.filter(San_pham.ma_san_pham == item_1.ma_san_pham).first()
-                loi_nhuan_1_hoa_don += item_1.loi_nhuan * item_1.so_luong
+                tong_doanh_thu += item_1.gia_ban * item_1.so_luong
+                doanh_thu_1_hoa_don += item_1.gia_ban * item_1.so_luong
                 
             dict_temp['ngay_tao_hoa_don'] = item.ngay_tao_hoa_don.strftime("%d-%m-%Y")
-            dict_temp['loi_nhuan'] = loi_nhuan_1_hoa_don
+            dict_temp['doanh_thu'] = doanh_thu_1_hoa_don
             danh_sach_hoa_don.append(dict_temp)
     
     for ngay in danh_sach_cac_ngay:
-        loi_nhuan_theo_ngay = 0
+        doanh_thu_theo_ngay = 0
         for bill in danh_sach_hoa_don:
             if bill['ngay_tao_hoa_don'] == ngay['ngay_tao_hoa_don']:
-                loi_nhuan_theo_ngay += bill['loi_nhuan']
-        ngay['tong_loi_nhuan'] = loi_nhuan_theo_ngay
+                doanh_thu_theo_ngay += bill['doanh_thu']
+        ngay['tong_doanh_thu'] = doanh_thu_theo_ngay
     
-        
+    
     return render_template('Quan_ly/QL_doanh_thu/Doanh_thu_all.html', form=form, danh_sach_cac_ngay = danh_sach_cac_ngay)
 
 
@@ -611,28 +610,27 @@ def ql_doanh_thu_tong_ket():
         tong_chi_phi += item.so_tien
     tong_loi_nhuan = 0
     so_don_hoan = 0
+    tong_thu = 0
     for hoa_don in ds_hoa_don:
         if hoa_don.trang_thai != 13:
             don_hang = Don_hang.query.filter(Don_hang.ma_hoa_don == hoa_don.ma_hoa_don).all()
             for dh in don_hang:
+                tong_thu += dh.gia_ban * dh.so_luong
                 tong_loi_nhuan += dh.loi_nhuan * dh.so_luong
         else:
             so_don_hoan += 1
-    return render_template('Quan_ly/QL_doanh_thu/Tong_ket.html', tong_chi_phi = tong_chi_phi, so_don_hoan = so_don_hoan, tong_loi_nhuan = tong_loi_nhuan, tieu_de = tieu_de,form = form)    
+    return render_template('Quan_ly/QL_doanh_thu/Tong_ket.html',tong_thu = tong_thu, tong_chi_phi = tong_chi_phi, so_don_hoan = so_don_hoan, tong_loi_nhuan = tong_loi_nhuan, tieu_de = tieu_de,form = form)    
 
-# @app.route('/private/update', methods =['GET','POST'])
-# def private_update():
-#     if not current_user.is_authenticated or current_user.ma_loai_nguoi_dung != 2:
-#         return redirect(url_for('log_in', next=request.url))
-#     ds_hoa_don = Hoa_don.query.all()
-#     for item in ds_hoa_don:
-#         a = item.ngay_tao_hoa_don
-        
-#         chuoi = datetime(a.year,1,a.day,a.hour,a.minute,a.second,a.microsecond)
-#         item.ngay_tao_hoa_don = chuoi
-#         db.session.add(item)
-#         db.session.commit()
-#     return redirect(url_for('index'))
+@app.route('/private/update', methods =['GET','POST'])
+def private_update():
+    if not current_user.is_authenticated or current_user.ma_loai_nguoi_dung != 2:
+        return redirect(url_for('log_in', next=request.url))
+    ds_hoa_don = Hoa_don.query.all()
+    for item in ds_hoa_don:
+        item.giam_gia = 0
+        db.session.add(item)
+        db.session.commit()
+    return redirect(url_for('index'))
 
 admin = Admin(app, name = "Admin", index_view=MyAdminIndexView(name="Admin"), template_mode='bootstrap3')
 admin.add_view(admin_view(Loai_nguoi_dung, db.session, 'Loại người dùng'))

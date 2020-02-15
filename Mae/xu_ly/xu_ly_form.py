@@ -53,6 +53,7 @@ class Form_hoa_don(FlaskForm):
     ngay_tao = fields.DateField('Ngày:',widget=DateInput())
     dia_chi = fields.StringField('Địa chỉ:')
     so_dien_thoai = fields.StringField('Số điện thoại:')
+    giam_gia = fields.FloatField('Giảm giá:')
     nha_van_chuyen = fields.SelectField('Hãng ship:', choices=[
     ('GHN','GHN')
     ,('Viettel','Viettel Post')

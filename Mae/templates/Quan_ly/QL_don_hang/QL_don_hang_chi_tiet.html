@@ -60,6 +60,7 @@
                     <th scope="col">Tên sản phẩm</th>
                     <th scope="col">Số lượng</th>
                     <th scope="col">Giá bán</th>
+                    <th scope="col">Giá nhập</th>
                     <th scope="col">Thành tiền</th>
                 </tr>
             </thead>
@@ -70,7 +71,8 @@
                     <td>{{item.ma_san_pham}}</td>
                     <td>{{item.ten_san_pham|title}}</td>
                     <td>{{item.so_luong}}</td>
-                    <td>{{item.gia_ban}}</td>
+                    <td>{{"{:,}".format(item.gia_ban)}}</td>
+                    <td>{{"{:,}".format(item.gia_nhap)}}</td>
                     <td>{{"{:,}".format(item.gia_ban * item.so_luong)}}</td>
                     
                     
@@ -82,14 +84,27 @@
     </div>
     <div class="row">
         <div class="col-md-12 text-right">
-            <b>Tổng cộng (chưa tính ship): {{"{:,}".format(tong_tien)}} VNĐ </b>
+            Tổng cộng (chưa tính ship): {{"{:,}".format(tong_tien)}}
         </div>
     </div>
+    
+    <div class="row">
+        <div class="col-md-12 text-right">
+            Giảm giá: {{"{:,}".format(hoa_don.giam_gia)}} 
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <b>Thành tiền:</b> {{"{:,}".format(hoa_don.tong_tien - hoa_don.giam_gia)}} VNĐ
+        </div>
+    </div>
+    
     {%if hoa_don.trang_thai != 13%}
     <div class="row">
         <div class="col-md-12 text-center">
             <button class="btn btn-danger">
-                <a href="{{url_for('don_hoan_cap_nhat_kho', hd_id = hoa_don.ma_hoa_don)}}" style="color:white;">Cho vào kho</a>
+                <a href="{{url_for('don_hoan_cap_nhat_kho', hd_id = hoa_don.ma_hoa_don)}}" style="color:white;">Hoàn</a>
             </button>
             
         </div>

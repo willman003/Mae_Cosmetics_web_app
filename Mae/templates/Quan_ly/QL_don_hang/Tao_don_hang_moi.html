@@ -44,13 +44,15 @@
         </div>
         <div class="form-row">
             {{form_hoa_don.so_dien_thoai.label(class="form-group col-sm-2",for='so_dien_thoai')}}
-            {{form_hoa_don.so_dien_thoai(class="form-group form-control col-sm-10")}}
+            {{form_hoa_don.so_dien_thoai(class="form-group form-control col-sm-2")}}
+            {{form_hoa_don.giam_gia.label(class="form-group col-sm-2 text-center",for='giam_gia')}}
+            {{form_hoa_don.giam_gia(class="form-group form-control col-sm-4", value=0)}}
           
         </div>
         <div class="form-row">
             {{form_hoa_don.nha_van_chuyen.label(class="form-group col-sm-2",for='nha_van_chuyen')}}
             {{form_hoa_don.nha_van_chuyen(class="form-group form-control col-sm-2")}}
-            {{form_hoa_don.phi_van_chuyen.label(class="form-group col-sm-2 text-right",for='phi_van_chuyen')}}
+            {{form_hoa_don.phi_van_chuyen.label(class="form-group col-sm-2 text-center",for='phi_van_chuyen')}}
             {{form_hoa_don.phi_van_chuyen(class="form-group form-control col-sm-6", value = 0)}}
 
           

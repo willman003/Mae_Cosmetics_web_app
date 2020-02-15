@@ -37,6 +37,15 @@
     </div>
     <div class="row">
         <div class="col-md-4 text-left">
+            <b>Tổng doanh thu:</b>
+
+        </div>
+        <div class="col-md-8 text-left">
+            {{"{:,}".format(tong_thu)}} VND
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 text-left">
             <b>Tổng chi phí:</b>
 
         </div>
@@ -56,7 +65,7 @@
     </div>
     <div class="row">
         <div class="col-md-12 text-center">
-            <b>Thực nhận:</b> {{"{:,}".format(tong_loi_nhuan - tong_chi_phi)}} VNĐ
+            <b>Thực nhận:</b> {{"{:,}".format(tong_thu - tong_chi_phi)}} VNĐ
 
         </div>
         

@@ -93,6 +93,7 @@ class Hoa_don(db.Model):
     ngay_tao_hoa_don = db.Column(db.DateTime, nullable = False)
     ma_khach_hang = db.Column(db.Integer, db.ForeignKey('khach_hang.ma_khach_hang'))
     tong_tien = db.Column(db.Float, nullable = False)
+    giam_gia = db.Column(db.Float, default = 0)
     kenh_ban = db.Column(db.String(100))
     ma_hoa_don_kenh_ban = db.Column(db.String(50))
     nha_van_chuyen = db.Column(db.String(255))
