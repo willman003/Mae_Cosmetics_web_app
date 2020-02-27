@@ -80,7 +80,7 @@
           <tr>
             <th scope="col">Mã sản phẩm</th>
             <th scope="col">Tên sản phẩm</th>
-            <th scope="col">Thuộc tính</th>            
+            <th scope="col">Tồn</th>            
             <th scope="col">Giá bán</th>
             <th scope="col">Giá nhập</th>
             
@@ -94,12 +94,13 @@
   
             <td>{{item.ma_san_pham}}</td>
             <td>{{item.ten_san_pham}}</td>  
-            <td>{{item.thuoc_tinh}}</td>
+            <td>{{item.so_luong_ton}}</td>
             
             <td>{{"{:,}".format(item.gia_ban)}}</td>
             <td>{{"{:,}".format(item.gia_nhap)}}</td>
+            {%if item.so_luong_ton>0%}
             <td><a href="{{url_for('ql_don_hang_them_vao_don_hang',ma_hd = hoa_don.ma_hoa_don, ma_sp = item.ma_san_pham)}}">Thêm</a></td>
-  
+            {%endif%}
           </tr>
           {%endfor%}
         </tbody>

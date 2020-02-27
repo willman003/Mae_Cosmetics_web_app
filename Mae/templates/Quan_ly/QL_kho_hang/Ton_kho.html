@@ -1,16 +1,24 @@
 {%extends 'layout/master_manage.html'%}
 {%block content%}
-<form class="container form-inline" method="POST">
-    {{form.hidden_tag()}}
-    <div class="form-group row">
-        <div class="col-md-8">
-            {{form.noi_dung(class="form-control",placeholder="Nhập Tên sản phẩm hoặc Mã sản phẩm")}}
+
+<form method="POST">
+    {{form_1.hidden_tag()}}
+    <div class="container form-inline">
+        <div class="form-group row">
+            <div class="col-md-8">
+                {{form_1.noi_dung(class="form-control",placeholder="Nhập tên sản phẩm",)}}
+    
+            </div>
+            <div class="col-md-4">
+                {{form_1.submit(class="btn btn-info")}}
+            </div>
         </div>
-        <div class="col-md-4">
-            <button class="btn btn-info" type="submit">Tìm</button>
-        </div>
+
     </div>
+
+
 </form>
+
 
 {%if page_filter.items|length == 0%}
 <div class="container" style="margin: 20px auto;">

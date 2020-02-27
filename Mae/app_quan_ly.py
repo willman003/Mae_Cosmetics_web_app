@@ -209,10 +209,30 @@ def ql_don_hang_confirm(ma_hd):
     khach_hang = Khach_hang.query.filter(Khach_hang.ma_khach_hang == hoa_don.ma_khach_hang).first()
     don_hang = Don_hang.query.filter(Don_hang.ma_hoa_don == ma_hd).all()
     tong_tien = 0
+    tong_loi_nhuan = 0
     for item in don_hang:
         tong_tien += item.gia_ban * item.so_luong
+        tong_loi_nhuan += (item.gia_ban-item.gia_nhap)*item.so_luong
+    tong_loi_nhuan -= hoa_don.giam_gia
 
-    return render_template('Quan_ly/QL_don_hang/Xac_nhan_don_hang.html', tong_tien = tong_tien, form_don_hang = form_don_hang, form_hoa_don = form_hoa_don, khach_hang = khach_hang, hoa_don = hoa_don, don_hang = don_hang)
+    return render_template('Quan_ly/QL_don_hang/Xac_nhan_don_hang.html', tong_loi_nhuan = tong_loi_nhuan, tong_tien = tong_tien, form_don_hang = form_don_hang, form_hoa_don = form_hoa_don, khach_hang = khach_hang, hoa_don = hoa_don, don_hang = don_hang)
+
+@app.route('/QL-don-hang/fix/hd_<int:ma_hd>',methods=['GET','POST'])
+def ql_don_hang_confirm_detail(ma_hd):
+    hoa_don = Hoa_don.query.filter(Hoa_don.ma_hoa_don == ma_hd).first()
+    # khach_hang = Khach_hang.query.filter(Khach_hang.ma_khach_hang == hoa_don.ma_khach_hang).first()
+    form = Form_hoa_don()
+    # hoa_don.ma_hoa_don_kenh_ban = form.ma_don_hang.data
+    # hoa_don.kenh_ban = form.kenh_ban.data
+    # khach_hang.dia_chi = form.dia_chi.data
+    # khach_hang.dien_thoai = form.so_dien_thoai.data
+    # hoa_don.nha_van_chuyen = form.nha_van_chuyen.data
+    hoa_don.giam_gia = form.giam_gia.data
+    # hoa_don.ma_van_don = form.ma_van_don.data
+    # hoa_don.ghi_chu = form.ghi_chu.data
+    db.session.add(hoa_don)
+    db.session.commit()
+    return redirect(url_for('ql_don_hang_confirm',ma_hd=ma_hd))
 
 @app.route('/QL-kho/cap-nhat-kho-hang/hd_<int:hd_id>', methods =['GET','POST'])
 def ql_kho_xuat_hang(hd_id):
@@ -226,7 +246,7 @@ def ql_kho_xuat_hang(hd_id):
     for item in don_hang:
         sp = San_pham.query.filter(San_pham.ma_san_pham == item.ma_san_pham).first()
         sp.so_luong_ton -= item.so_luong
-        tong_tien = item.so_luong * item.gia_ban
+        tong_tien += item.so_luong * item.gia_ban
         db.session.add(sp)
         db.session.commit()
     hd.tong_tien = tong_tien    
@@ -281,7 +301,7 @@ def ql_don_hang_theo_ma(page):
     if form.validate_on_submit():
         tim_kiem = form.ma_hoa_don.data.strip()
         
-        page_filter = Hoa_don.query.join(Khach_hang).filter(Hoa_don.ma_hoa_don == tim_kiem).order_by(desc(Hoa_don.ngay_tao_hoa_don)).paginate(page,5,False)
+        page_filter = Hoa_don.query.join(Khach_hang).filter(Hoa_don.ma_hoa_don_kenh_ban == tim_kiem).order_by(desc(Hoa_don.ngay_tao_hoa_don)).paginate(page,5,False)
         
         if len(page_filter.items) == 0:
             chuoi_thong_bao = 'Không tìm thấy mã hóa đơn ' + tim_kiem
@@ -437,10 +457,11 @@ def ql_cap_nhat_sp(ma_sp):
 def ql_so_luong_ton(page):
     if not current_user.is_authenticated or current_user.ma_loai_nguoi_dung != 2:
         return redirect(url_for('log_in', next=request.url))
-    form = Form_tim_kiem()
-    page_filter = San_pham.query.paginate(page,5,False)
-    if form.validate_on_submit():
-        tim_kiem = form.noi_dung.data
+    # form_1 = Form_tim_kiem()
+    form_1 = Form_tim_kiem()
+    page_filter = San_pham.query.filter(San_pham.so_luong_ton<=0).paginate(page,5,False)
+    if form_1.submit.data and form_1.validate_on_submit():
+        tim_kiem = form_1.noi_dung.data
         if tim_kiem.isdigit():
             page_filter = San_pham.query.filter(San_pham.ma_san_pham == int(tim_kiem)).paginate(page,5,False)
         else:
@@ -449,7 +470,11 @@ def ql_so_luong_ton(page):
         if len(page_filter.items) == 0:
             thong_bao = 'Không tìm thấy sản phẩm!'
     
-    return render_template('Quan_ly/QL_kho_hang/Ton_kho.html', form=form, page_filter = page_filter)
+    return render_template('Quan_ly/QL_kho_hang/Ton_kho.html',form_1=form_1, page_filter = page_filter)
+
+
+
+#----------------------DOANH THU
 
 @app.route('/QL-doanh-thu', methods = ['GET','POST'])
 def ql_doanh_thu():
@@ -466,7 +491,8 @@ def ql_doanh_thu():
             dia_chi = url_for('ql_doanh_thu_theo_ngay')
         elif dieu_khien == 'TongKet':
             dia_chi = url_for('ql_doanh_thu_tong_ket')
-        
+        elif dieu_khien == 'Von':
+            dia_chi = url_for('ql_doanh_thu_von')
     return render_template('Quan_ly/QL_doanh_thu/MH_QL_doanh_thu.html', dia_chi = dia_chi)
 
 @app.route('/QL-doanh-thu/chi', methods =['GET','POST'])
@@ -601,25 +627,68 @@ def ql_doanh_thu_tong_ket():
     tieu_de = 'Tính từ ngày ' + ngay_dau_thang.strftime("%d-%m-%Y") + ' đến ngày ' + ngay_cuoi_thang.strftime("%d-%m-%Y")
     ds_chi = Thu_chi.query.filter(Thu_chi.thoi_gian.between(ngay_dau_thang, ngay_cuoi_thang)).all()
     ds_hoa_don = Hoa_don.query.filter(Hoa_don.ngay_tao_hoa_don.between(ngay_dau_thang,ngay_cuoi_thang)).all()
+    ds_san_pham = San_pham.query.all()
     if form.validate_on_submit():
         ds_chi =Thu_chi.query.filter(Thu_chi.thoi_gian.between(form.tu_ngay.data,form.den_ngay.data)).all()
         ds_hoa_don = Hoa_don.query.filter(Hoa_don.ngay_tao_hoa_don.between(form.tu_ngay.data,form.den_ngay.data)).all()
         tieu_de = 'Tính từ ngày ' + form.tu_ngay.data.strftime("%d-%m-%Y") + ' đến ngày ' + form.den_ngay.data.strftime("%d-%m-%Y")
     tong_chi_phi = 0
     for item in ds_chi:
-        tong_chi_phi += item.so_tien
-    tong_loi_nhuan = 0
+        if item.loai == 1:
+            tong_chi_phi += item.so_tien
     so_don_hoan = 0
     tong_thu = 0
+    von = 0
     for hoa_don in ds_hoa_don:
         if hoa_don.trang_thai != 13:
             don_hang = Don_hang.query.filter(Don_hang.ma_hoa_don == hoa_don.ma_hoa_don).all()
             for dh in don_hang:
                 tong_thu += dh.gia_ban * dh.so_luong
-                tong_loi_nhuan += dh.loi_nhuan * dh.so_luong
+            tong_thu -= hoa_don.giam_gia
         else:
             so_don_hoan += 1
-    return render_template('Quan_ly/QL_doanh_thu/Tong_ket.html',tong_thu = tong_thu, tong_chi_phi = tong_chi_phi, so_don_hoan = so_don_hoan, tong_loi_nhuan = tong_loi_nhuan, tieu_de = tieu_de,form = form)    
+    tong_tien_hang = 0
+    for sp in ds_san_pham:
+        tong_tien_hang += (sp.gia_nhap*sp.so_luong_ton)
+    for item in ds_chi:
+        if item.loai == 2:
+            von = item.so_tien
+            break
+    tong_loi_nhuan = tong_thu-tong_chi_phi-(tong_tien_hang+von)
+    return render_template('Quan_ly/QL_doanh_thu/Tong_ket.html',von=von,tong_tien_hang = tong_tien_hang,tong_thu = tong_thu, tong_chi_phi = tong_chi_phi, so_don_hoan = so_don_hoan, tong_loi_nhuan = tong_loi_nhuan, tieu_de = tieu_de,form = form)    
+
+@app.route('/QL-doanh-thu/von',methods=['GET','POST'])
+def ql_doanh_thu_von():
+    today = datetime.now()
+    form_1 = Form_khoan_chi()
+    von_object = Thu_chi.query.filter(Thu_chi.loai == 2).first()
+    if von_object == None:
+        von_object = Thu_chi()
+        von_object.ten = "Vốn bị động"
+        von_object.noi_dung = "Vốn bị động"
+        von_object.loai = 2
+        von_object.thoi_gian = today
+        von_object.so_tien = 0
+        db.session.add(von_object)
+        db.session.commit()
+    if form_1.validate_on_submit():
+        if von_object == None:
+            von_object = Thu_chi()
+            von_object.ten = "Vốn bị động"
+            von_object.noi_dung = "Vốn bị động"
+            von_object.loai = 2
+            von_object.thoi_gian = today
+            von_object.so_tien = form_1.so_tien.data
+            db.session.add(von_object)
+            db.session.commit()
+        else:
+            von_object.so_tien = form_1.so_tien.data
+            db.session.add(von_object)
+            db.session.commit()
+
+    return render_template('Quan_ly/QL_doanh_thu/Von.html', form_1=form_1, von=von_object)
+
+#----------------------END DOANH THU
 
 @app.route('/private/update', methods =['GET','POST'])
 def private_update():

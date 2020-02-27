@@ -1,0 +1,62 @@
+{%extends 'layout/master_manage.html'%}
+{%block content%}
+<form method="POST">
+    <div class="container">
+        {{form_1.hidden_tag()}}
+        <div class="form-row">
+            <div class="form-group col-md-12 text-center">
+                <h3><b>Vốn bị động</b></h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <b>Vốn bị động hiện tại:</b>
+            </div>
+            <div class="col-md-8">
+                <b>{{"{:,}".format(von.so_tien)}} VNĐ</b>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                Lần thay đổi gần nhất:
+            </div>
+            <div class="col-md-8">
+                {{von.thoi_gian.strftime("%d-%m-%Y %H:%M:%S")}}
+            </div>
+        </div>
+    
+        <hr>
+        
+        <div class="form-row">
+            <label class="form-group col-md-4" for="ten">Tên*:</label>
+            {{form_1.ten(class="form-group form-control col-md-8", value = "Vốn bị động", readonly=True)}}
+             
+        </div>
+        <div class="form-row">
+            <label class="form-group col-md-4" for="noi_dung">Nội dung khoản chi:</label>
+            {{form_1.noi_dung(class="form-group form-control col-md-8", value = "Vốn bị động", readonly=True)}}
+            
+        </div>
+        <div class="form-row">
+            <label class="form-group col-md-4" for="so_tien">Số tiền*:</label>
+            {{form_1.so_tien(class="form-group form-control col-md-8")}}
+           
+            
+        </div>
+        <div class="form-row">
+            <div class="col-md-12 text-center">
+                {{form_1.submit_1(class="btn btn-secondary")}}
+            </div>
+            
+        </div>
+        <div class="form-row">
+            <div class="col-md-12 text-center">
+                {{chuoi_thong_bao}}
+            </div>
+            
+        </div>
+    </div>
+
+</form>
+
+{%endblock%}

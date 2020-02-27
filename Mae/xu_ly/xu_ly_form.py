@@ -88,6 +88,7 @@ class Form_hoa_don(FlaskForm):
         hoa_don.ma_van_don = self.ma_van_don.data.strip()
         hoa_don.phi_van_chuyen = self.phi_van_chuyen.data
         hoa_don.ghi_chu = self.ghi_chu.data
+        hoa_don.giam_gia = self.giam_gia.data
         db.session.add(hoa_don)
         db.session.commit()
         return hoa_don.get_id()
@@ -133,6 +134,7 @@ class Form_QL_don_hang(FlaskForm):
 
 class Form_tim_kiem(FlaskForm):
     noi_dung = fields.StringField()
+    submit = fields.SubmitField('Tìm')
 
 class Form_tim_kiem_nhap_hang(FlaskForm):
     noi_dung = fields.StringField()
