@@ -654,7 +654,7 @@ def ql_doanh_thu_tong_ket():
         if item.loai == 2:
             von = item.so_tien
             break
-    tong_loi_nhuan = tong_thu-tong_chi_phi-(tong_tien_hang+von)
+    tong_loi_nhuan = tong_thu-tong_chi_phi-(tong_tien_hang-von)
     return render_template('Quan_ly/QL_doanh_thu/Tong_ket.html',von=von,tong_tien_hang = tong_tien_hang,tong_thu = tong_thu, tong_chi_phi = tong_chi_phi, so_don_hoan = so_don_hoan, tong_loi_nhuan = tong_loi_nhuan, tieu_de = tieu_de,form = form)    
 
 @app.route('/QL-doanh-thu/von',methods=['GET','POST'])
