@@ -683,6 +683,7 @@ def ql_doanh_thu_von():
             db.session.commit()
         else:
             von_object.so_tien = form_1.so_tien.data
+            von_object.thoi_gian = today
             db.session.add(von_object)
             db.session.commit()
 
