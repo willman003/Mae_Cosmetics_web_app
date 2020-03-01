@@ -626,6 +626,7 @@ def ql_doanh_thu_tong_ket():
     ngay_cuoi_thang = datetime(today.year, today.month, str_temp_1[1]) + timedelta(days=1)
     tieu_de = 'Tính từ ngày ' + ngay_dau_thang.strftime("%d-%m-%Y") + ' đến ngày ' + ngay_cuoi_thang.strftime("%d-%m-%Y")
     ds_chi = Thu_chi.query.filter(Thu_chi.thoi_gian.between(ngay_dau_thang, ngay_cuoi_thang)).all()
+    von = Thu_chi.query.filter(Thu_chi.loai == 2).first()
     ds_hoa_don = Hoa_don.query.filter(Hoa_don.ngay_tao_hoa_don.between(ngay_dau_thang,ngay_cuoi_thang)).all()
     ds_san_pham = San_pham.query.all()
     if form.validate_on_submit():
@@ -650,10 +651,6 @@ def ql_doanh_thu_tong_ket():
     tong_tien_hang = 0
     for sp in ds_san_pham:
         tong_tien_hang += (sp.gia_nhap*sp.so_luong_ton)
-    for item in ds_chi:
-        if item.loai == 2:
-            von = item.so_tien
-            break
     tong_loi_nhuan = tong_thu-tong_chi_phi-(tong_tien_hang-von)
     return render_template('Quan_ly/QL_doanh_thu/Tong_ket.html',von=von,tong_tien_hang = tong_tien_hang,tong_thu = tong_thu, tong_chi_phi = tong_chi_phi, so_don_hoan = so_don_hoan, tong_loi_nhuan = tong_loi_nhuan, tieu_de = tieu_de,form = form)    
 
