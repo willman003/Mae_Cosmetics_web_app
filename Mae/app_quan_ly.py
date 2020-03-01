@@ -459,7 +459,7 @@ def ql_so_luong_ton(page):
         return redirect(url_for('log_in', next=request.url))
     # form_1 = Form_tim_kiem()
     form_1 = Form_tim_kiem()
-    page_filter = San_pham.query.filter(San_pham.so_luong_ton<=0).paginate(page,5,False)
+    page_filter = San_pham.query.paginate(page,5,False)
     if form_1.submit.data and form_1.validate_on_submit():
         tim_kiem = form_1.noi_dung.data
         if tim_kiem.isdigit():
