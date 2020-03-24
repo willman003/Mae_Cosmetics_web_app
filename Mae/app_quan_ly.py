@@ -639,12 +639,13 @@ def ql_doanh_thu_tong_ket():
             tong_chi_phi += item.so_tien
     so_don_hoan = 0
     tong_thu = 0
-    
+    thuc_thu = 0
     for hoa_don in ds_hoa_don:
         if hoa_don.trang_thai != 13:
             don_hang = Don_hang.query.filter(Don_hang.ma_hoa_don == hoa_don.ma_hoa_don).all()
             for dh in don_hang:
                 tong_thu += dh.gia_ban * dh.so_luong
+                thuc_thu += dh.loi_nhuan * dh.so_luong
             tong_thu -= hoa_don.giam_gia
         else:
             so_don_hoan += 1
@@ -652,7 +653,8 @@ def ql_doanh_thu_tong_ket():
     for sp in ds_san_pham:
         tong_tien_hang += (sp.gia_nhap*sp.so_luong_ton)
     tong_loi_nhuan = tong_thu-tong_chi_phi-(tong_tien_hang-von.so_tien)
-    return render_template('Quan_ly/QL_doanh_thu/Tong_ket.html',von=von,tong_tien_hang = tong_tien_hang,tong_thu = tong_thu, tong_chi_phi = tong_chi_phi, so_don_hoan = so_don_hoan, tong_loi_nhuan = tong_loi_nhuan, tieu_de = tieu_de,form = form)    
+    
+    return render_template('Quan_ly/QL_doanh_thu/Tong_ket.html',thuc_thu = thuc_thu, von=von,tong_tien_hang = tong_tien_hang,tong_thu = tong_thu, tong_chi_phi = tong_chi_phi, so_don_hoan = so_don_hoan, tong_loi_nhuan = tong_loi_nhuan, tieu_de = tieu_de,form = form)    
 
 @app.route('/QL-doanh-thu/von',methods=['GET','POST'])
 def ql_doanh_thu_von():
