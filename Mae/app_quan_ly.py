@@ -646,6 +646,7 @@ def ql_doanh_thu_tong_ket():
             for dh in don_hang:
                 tong_thu += dh.gia_ban * dh.so_luong
                 thuc_thu += dh.loi_nhuan * dh.so_luong
+            thuc_thu -= hoa_don.giam_gia
             tong_thu -= hoa_don.giam_gia
         else:
             so_don_hoan += 1
