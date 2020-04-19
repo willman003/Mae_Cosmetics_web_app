@@ -654,8 +654,12 @@ def ql_doanh_thu_tong_ket():
     for sp in ds_san_pham:
         tong_tien_hang += (sp.gia_nhap*sp.so_luong_ton)
     tong_loi_nhuan = tong_thu-tong_chi_phi-(tong_tien_hang-von.so_tien)
+    phan_tram_1 = ((tong_chi_phi+thuc_thu)/tong_thu)*100
+    phan_tram_2 = (thuc_thu/tong_thu)*100
+    phan_tram_3 = (thuc_thu/von.so_tien)*100
+    lst_temp = [phan_tram_1,phan_tram_2,phan_tram_3]
     
-    return render_template('Quan_ly/QL_doanh_thu/Tong_ket.html',thuc_thu = thuc_thu, von=von,tong_tien_hang = tong_tien_hang,tong_thu = tong_thu, tong_chi_phi = tong_chi_phi, so_don_hoan = so_don_hoan, tong_loi_nhuan = tong_loi_nhuan, tieu_de = tieu_de,form = form)    
+    return render_template('Quan_ly/QL_doanh_thu/Tong_ket.html',lst_temp = lst_temp,thuc_thu = thuc_thu, von=von,tong_tien_hang = tong_tien_hang,tong_thu = tong_thu, tong_chi_phi = tong_chi_phi, so_don_hoan = so_don_hoan, tong_loi_nhuan = tong_loi_nhuan, tieu_de = tieu_de,form = form)    
 
 @app.route('/QL-doanh-thu/von',methods=['GET','POST'])
 def ql_doanh_thu_von():

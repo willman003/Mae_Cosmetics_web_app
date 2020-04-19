@@ -65,19 +65,41 @@
     </div>
     <div class="row">
         <div class="col-sm-12">
+            {%if page_filter.items|length > 10%}
             <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-center">
-                {%if page_filter.has_prev%}
-                  <li class="page-item"><a class="page-link" href="{{url_for('ql_don_hang_theo_ma', page = page_filter.prev_num)}}"><<</a></li>
-                {%endif%}
-                {%for i in range(1,page_filter.pages+1)%}
-                  <li class="page-item {%if page_filter.page == i%} active {%endif%}"><a class="page-link" href="{{url_for('ql_don_hang_theo_ma', page = i)}}">{{i}}</a></li>
-                {%endfor%}  
-                {%if page_filter.has_next%}
-                  <li class="page-item"><a class="page-link" href="{{url_for('ql_don_hang_theo_ma', page = page_filter.next_num)}}">>></a></li>
-                {%endif%}
+                    {%if page_filter.page-10 >= 0%}                
+                    <li class="page-item"><a class="page-link" href="{{url_for('ql_don_hang_theo_ma', page = page_filter.page - 10) }}">-10</a></li>
+                    {%endif%}
+                    {%if page_filter.has_prev%}
+                    <li class="page-item"><a class="page-link" href="{{url_for('ql_don_hang_theo_ma', page = page_filter.prev_num)}}">Next</a></li>
+                    {%endif%}
+                    {%for i in range(page_filter.page-5,page_filter.page+5)%}
+                    <li class="page-item {%if page_filter.page == i%} active {%endif%}"><a class="page-link" href="{{url_for('ql_don_hang_theo_ma', page = i)}}">{{i}}</a></li>
+                    {%endfor%}  
+                    {%if page_filter.has_next%}
+                    <li class="page-item"><a class="page-link" href="{{url_for('ql_don_hang_theo_ma', page = page_filter.next_num)}}">Prev</a></li>
+                    {%endif%}
+                    {%if page_filter.page+10 <= page_filter.pages%}
+                    <li class="page-item"><a class="page-link" href="{{url_for('ql_don_hang_theo_ma', page = page_filter.page + 10)}}">+10</a></li>
+                    {%endif%}
                 </ul>
             </nav>
+            {%else%}
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">                
+                    {%if page_filter.has_prev%}
+                    <li class="page-item"><a class="page-link" href="{{url_for('ql_don_hang_theo_ma', page = page_filter.prev_num)}}">Next</a></li>
+                    {%endif%}
+                    {%for i in range(1,page_filter.pages+1)%}
+                    <li class="page-item {%if page_filter.page == i%} active {%endif%}"><a class="page-link" href="{{url_for('ql_don_hang_theo_ma', page = i)}}">{{i}}</a></li>
+                    {%endfor%}  
+                    {%if page_filter.has_next%}
+                    <li class="page-item"><a class="page-link" href="{{url_for('ql_don_hang_theo_ma', page = page_filter.next_num)}}">Prev</a></li>
+                    {%endif%}
+                </ul>
+            </nav>
+            {%endif%}
 
         </div>
     </div>
