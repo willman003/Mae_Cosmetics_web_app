@@ -65,7 +65,7 @@
     </div>
     <div class="row">
         <div class="col-sm-12">
-            {%if page_filter.items|length > 10%}
+            {%if page_filter.page > 10%}
             <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-center">
                     {%if page_filter.page-10 >= 0%}                
