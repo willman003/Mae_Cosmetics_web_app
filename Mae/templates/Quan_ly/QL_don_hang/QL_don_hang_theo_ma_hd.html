@@ -68,23 +68,27 @@
             <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-center">                
                     {%if page_filter.has_prev%}
-                    <li class="page-item"><a class="page-link" href="{{url_for('ql_don_hang_theo_ma', page = page_filter.prev_num)}}">Next</a></li>
+                    <li class="page-item"><a class="page-link" href="{{url_for('ql_don_hang_theo_ma', page = page_filter.prev_num)}}">-1</a></li>
                     {%endif%}
                     {%if page_filter.page > 3 %}
-                        {%for i in range(1,3)%}
+                        {%for i in range(1,4)%}
                         <li class="page-item {%if page_filter.page == i%} active {%endif%}"><a class="page-link" href="{{url_for('ql_don_hang_theo_ma', page = i)}}">{{i}}</a></li>
                         {%endfor%}
                         <li class="page-item" ><a class="page-link" href="{{url_for('ql_don_hang_theo_ma', page = page_filter.page)}}">...</a></li>
                         <li class="page-item" active><a class="page-link" href="{{url_for('ql_don_hang_theo_ma', page = page_filter.page)}}">{{page_filter.page}}</a></li>
                         <li class="page-item" ><a class="page-link" href="{{url_for('ql_don_hang_theo_ma', page = page_filter.page)}}">...</a></li>
-                        {%for i in range(page_filter.pages-3,page_filter.pages+1)%}
+                        {%for i in range(page_filter.pages-2,page_filter.pages+1)%}
                         <li class="page-item {%if page_filter.page == i%} active {%endif%}"><a class="page-link" href="{{url_for('ql_don_hang_theo_ma', page = i)}}">{{i}}</a></li>
                         {%endfor%} 
                     {%else%}
                     <li class="page-item" active><a class="page-link" href="{{url_for('ql_don_hang_theo_ma', page = page_filter.page)}}">{{page_filter.page}}</a></li>
+                    <li class="page-item" ><a class="page-link" href="{{url_for('ql_don_hang_theo_ma', page = page_filter.page)}}">...</a></li>
+                    {%for i in range(page_filter.pages-2,page_filter.pages+1)%}
+                    <li class="page-item {%if page_filter.page == i%} active {%endif%}"><a class="page-link" href="{{url_for('ql_don_hang_theo_ma', page = i)}}">{{i}}</a></li>
+                    {%endfor%}
                     {%endif%}
                     {%if page_filter.has_next%}
-                    <li class="page-item"><a class="page-link" href="{{url_for('ql_don_hang_theo_ma', page = page_filter.next_num)}}">Prev</a></li>
+                    <li class="page-item"><a class="page-link" href="{{url_for('ql_don_hang_theo_ma', page = page_filter.next_num)}}">+1</a></li> 
                     {%endif%}
                 </ul>
             </nav>
